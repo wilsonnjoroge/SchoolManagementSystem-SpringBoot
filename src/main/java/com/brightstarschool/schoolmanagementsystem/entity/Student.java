@@ -8,7 +8,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "student_id", length = 11)
-    private int studentId;
+    private long studentId;
 
     @Column(name = "student_name", length = 45)
     private String studentName;
@@ -23,7 +23,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(int studentId, String studentName, String adress, String phoneNumber) {
+    public Student(long studentId, String studentName, String adress, String phoneNumber) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.adress = adress;
@@ -37,11 +37,11 @@ public class Student {
     }
 
 
-    public int getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(long studentId) {
         this.studentId = studentId;
     }
 
