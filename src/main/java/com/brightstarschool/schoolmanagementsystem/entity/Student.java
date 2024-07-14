@@ -1,6 +1,8 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.aspectj.lang.annotation.RequiredTypes;
 
 @Entity
 @Table(name="students")
@@ -8,14 +10,17 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "student_id", length = 11)
-    private int studentId;
+    private long studentId;
 
+    @NotNull
     @Column(name = "student_name", length = 45)
     private String studentName;
 
+    @NotNull
     @Column(name = "adress", length = 60)
     private String adress;
 
+    @NotNull
     @Column(name = "phoneNumber", length = 12)
     private String phoneNumber;
 
@@ -23,7 +28,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(int studentId, String studentName, String adress, String phoneNumber) {
+    public Student(long studentId, String studentName, String adress, String phoneNumber) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.adress = adress;
@@ -37,11 +42,11 @@ public class Student {
     }
 
 
-    public int getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(long studentId) {
         this.studentId = studentId;
     }
 
