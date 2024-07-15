@@ -1,4 +1,4 @@
-package com.brightstarschool.schoolmanagementsystem.service;
+package com.brightstarschool.schoolmanagementsystem.service.interfaces;
 
 import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;

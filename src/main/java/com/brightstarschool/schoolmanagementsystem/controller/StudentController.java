@@ -2,7 +2,8 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
-import com.brightstarschool.schoolmanagementsystem.service.StudentService;
+import com.brightstarschool.schoolmanagementsystem.dto.StudentUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,16 +22,31 @@ public class StudentController {
     public String saveStudent(@RequestBody StudentSaveDTO studentSaveDTO)
     {
         String studentName = studentService.addStudent(studentSaveDTO);
-        return studentName;
+        return "Name: " + studentName;
     };
 
     @GetMapping(path = "/view-all-students")
     public List<StudentDTO> getAllStudents()
     {
         List<StudentDTO> allStudents = studentService.getAllStudents();
-
         return allStudents;
-
     };
+
+    @PutMapping(path = "/update-student/{id}")
+    public String updateStudent(@PathVariable("id") long id, @RequestBody StudentUpdateDTO studentUpdateDTO) {
+        String updatedStudent = studentService.updateStudent(id, studentUpdateDTO);
+        return updatedStudent;
+    }
+
+    @DeleteMapping(path = "/delete-student/{id}")
+    public String deleteStudent(@PathVariable("id") long id) {
+        boolean deleteStudent = studentService.deleteStudent(id);
+        if (deleteStudent) {
+            return "Student deleted successfully";
+        } else {
+            return "Student ID not found";
+        }
+    }
+
 
 }
