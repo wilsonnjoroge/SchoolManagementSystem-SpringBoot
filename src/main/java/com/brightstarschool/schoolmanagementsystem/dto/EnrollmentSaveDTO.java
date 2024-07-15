@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnrollmentSaveDTO {
+
     private long enrollmentId;
 
     private long studentId;
