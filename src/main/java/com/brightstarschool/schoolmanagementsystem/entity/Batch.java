@@ -1,7 +1,9 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "Batches")
@@ -19,10 +21,13 @@ public class Batch {
     @Column(name = "start_date", length = 12)
     private String startDate;
 
-    // Manny batches contain one course
+    // Many batches contain one course
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
+
+    @OneToMany(mappedBy = "batch")
+    private Set<Enrollment> enrollments;
 
     public Batch() {
     }
@@ -70,6 +75,14 @@ public class Batch {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Set<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = enrollments;
     }
 
     @Override

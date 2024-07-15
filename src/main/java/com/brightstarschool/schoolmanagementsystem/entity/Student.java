@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.aspectj.lang.annotation.RequiredTypes;
 
+import java.util.Set;
+
 @Entity
-@Table(name="students")
+@Table(name="Students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +25,9 @@ public class Student {
     @NotNull
     @Column(name = "phoneNumber", length = 12)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "student")
+    private Set<Enrollment> enrollments;
 
 
     public Student() {
