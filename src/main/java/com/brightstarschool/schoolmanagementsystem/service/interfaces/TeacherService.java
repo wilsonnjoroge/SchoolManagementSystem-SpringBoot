@@ -1,4 +1,4 @@
-package com.brightstarschool.schoolmanagementsystem.service;
+package com.brightstarschool.schoolmanagementsystem.service.interfaces;
 
 import com.brightstarschool.schoolmanagementsystem.dto.*;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
