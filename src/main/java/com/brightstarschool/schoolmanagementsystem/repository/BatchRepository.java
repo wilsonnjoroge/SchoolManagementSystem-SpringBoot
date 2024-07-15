@@ -1,0 +1,2 @@
+package com.brightstarschool.schoolmanagementsystem.repository;public class BatchRepository {
+}
