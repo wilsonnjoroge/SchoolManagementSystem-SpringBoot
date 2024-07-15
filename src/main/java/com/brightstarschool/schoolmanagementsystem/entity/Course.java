@@ -3,6 +3,8 @@ package com.brightstarschool.schoolmanagementsystem.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Courses")
 public class Course {
@@ -22,6 +24,10 @@ public class Course {
     @NotNull
     @Column(name = "duration", length = 12)
     private String duration;
+
+    // One course can have many batches
+    @OneToMany(mappedBy = "course")
+    private Set<Batch> batches;
 
     public Course() {
     }
