@@ -26,7 +26,8 @@ public class Batch {
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
-    @OneToMany(mappedBy = "batch")
+    // Cascde for deleting all the rshps having this as foreign key
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Enrollment> enrollments;
 
     public Batch() {
