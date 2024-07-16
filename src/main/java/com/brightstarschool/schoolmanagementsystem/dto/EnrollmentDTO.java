@@ -15,7 +15,7 @@ public class EnrollmentDTO {
 
     private Student student;
 
-    private Batch batch;
+    //private Batch batch;
 
     private String joinDate;
 

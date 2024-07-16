@@ -1,23 +1,43 @@
 package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.BatchSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.EnrollmentDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.EnrollmentSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.EnrollmentUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.entity.Enrollment;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.BatchService;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/enrollments")
+@RequestMapping(path = "api/v1/enrollments")
 public class EnrollmentController {
     @Autowired
     private EnrollmentService enrollmentService;
 
-    @PostMapping(path = "/add-enrollments")
+    @PostMapping("/add-enrollments")
     public String saveEnrollment(@RequestBody EnrollmentSaveDTO enrollmentSaveDTO)
     {
-        String enrollmentName = enrollmentService.addEnrollment(enrollmentSaveDTO);
-        return "Enrollment created successfully. \nEnrollment Name: " + enrollmentName;
+        String results = enrollmentService.addEnrollment(enrollmentSaveDTO);
+        return results;
+    };
+
+    @GetMapping(path = "/view-all-enrollments")
+    public List<EnrollmentDTO> getAllEnrollments()
+    {
+        List<EnrollmentDTO> results = enrollmentService.getAllEnrollments();
+        return results;
+    }
+
+    @PutMapping("/update-enrollment/{id}")
+    public String updateEnrollments(@PathVariable("id")long id, EnrollmentUpdateDTO enrollmentUpdateDTO)
+    {
+        String results = enrollmentService.updateEnrollment(id,enrollmentUpdateDTO);
+        return results;
+
     };
 }
