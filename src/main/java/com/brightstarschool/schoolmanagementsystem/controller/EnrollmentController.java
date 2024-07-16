@@ -40,4 +40,14 @@ public class EnrollmentController {
         return results;
 
     };
+
+    @DeleteMapping(path = "/delete-enrollment/{id}")
+    public String deleteEnrollment(@PathVariable("id") long id) {
+        boolean deleteEnrollment = enrollmentService.deleteEnrollment(id);
+        if (deleteEnrollment) {
+            return "enrollment deleted successfully";
+        } else {
+            return "Course ID not found";
+        }
+    }
 }
