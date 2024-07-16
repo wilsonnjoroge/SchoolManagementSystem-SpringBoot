@@ -127,6 +127,18 @@ public class EnrollmentServiceImplementation implements EnrollmentService {
             throw new RuntimeException(ex);
         }
     }
+
+    @Override
+    public boolean deleteEnrollment(long id) {
+        if (enrollmentRepository.existsById(id)) {
+            enrollmentRepository.deleteById(id);
+            System.out.println("\nEnrollment deleted successfully");
+            return true;
+        } else {
+            System.out.println("\nEnrollment ID not found");
+            return false;
+        }
+    }
 }
 
 

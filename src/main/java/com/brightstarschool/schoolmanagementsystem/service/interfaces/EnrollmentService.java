@@ -10,4 +10,6 @@ public interface EnrollmentService {
     List<EnrollmentDTO> getAllEnrollments();
 
     String updateEnrollment(long id, EnrollmentUpdateDTO enrollmentUpdateDTO);
+
+    boolean deleteEnrollment(long id);
 }
