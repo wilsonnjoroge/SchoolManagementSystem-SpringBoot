@@ -18,4 +18,5 @@ public class EnrollmentUpdateDTO {
     private String joinDate;
 
     private int fee;
+
 }
