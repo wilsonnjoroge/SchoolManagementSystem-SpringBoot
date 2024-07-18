@@ -19,13 +19,18 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
     public String addStudent(StudentSaveDTO studentSaveDTO) {
         try {
 
-            Optional<Student> studentExist = studentRepository.findByIdNumber(studentSaveDTO.getIdNumber());
+            Optional<Student> studentIdExist = studentRepository.findByIdNumber(studentSaveDTO.getIdNumber());
 
-            if(studentExist.isPresent())
+            if(studentIdExist.isPresent())
             {
                 return ("Student with id: " + studentSaveDTO.getIdNumber() + " already exists!!");
-
             };
+
+            Optional<Student> studentEmailExist = studentRepository.findByEmail(studentSaveDTO.getEmail());
+            if(studentEmailExist.isPresent())
+            {
+                return ("Student with email: " + studentSaveDTO.getEmail() + " already exists!!");
+            }
 
             Student student = new Student(
                     studentSaveDTO.getStudentName(),

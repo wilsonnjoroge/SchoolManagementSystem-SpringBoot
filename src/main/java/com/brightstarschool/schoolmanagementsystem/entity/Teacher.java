@@ -25,22 +25,28 @@ public class Teacher {
     @Column(name = "phoneNumber", length = 12)
     private String phoneNumber;
 
+    @NotNull
+    @Column(name = "idNumber", length = 12)
+    private long idNumber;
+
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String teacherName, String adress, String phoneNumber, String email) {
+    public Teacher(long teacherId, String teacherName, String adress, String phoneNumber, String email, long idNumber) {
         this.teacherId = teacherId;
         this.teacherName = teacherName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.idNumber = idNumber;
     }
 
-    public Teacher(String teacherName, String adress, String phoneNumber, String email) {
+    public Teacher(String teacherName, String adress, String phoneNumber, String email, long idNumber) {
         this.teacherName = teacherName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.idNumber = idNumber;
     }
 
     public long getTeacherId() {
@@ -83,6 +89,15 @@ public class Teacher {
         this.email = email;
     }
 
+    public long getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(long idNumber) {
+        this.idNumber = idNumber;
+    }
+
+
     @Override
     public String toString() {
         return "Teacher{" +
@@ -91,6 +106,7 @@ public class Teacher {
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", idNumber='" + idNumber + '\'' +
                 '}';
     }
 
