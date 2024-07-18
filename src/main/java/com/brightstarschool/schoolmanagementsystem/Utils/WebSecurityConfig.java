@@ -1,4 +1,4 @@
-package com.brightstarschool.schoolmanagementsystem.Configs;
+package com.brightstarschool.schoolmanagementsystem.Utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
