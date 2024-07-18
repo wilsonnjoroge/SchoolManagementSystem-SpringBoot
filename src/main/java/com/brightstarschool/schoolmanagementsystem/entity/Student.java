@@ -34,7 +34,7 @@ public class Student {
     private long idNumber;
 
     @NotNull
-    @Column(name = "password", length = 20)
+    @Column(name = "password")
     private String password;
     @OneToMany(mappedBy = "student")
     private Set<Enrollment> enrollments;

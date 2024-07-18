@@ -4,9 +4,12 @@ import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 
@@ -15,6 +18,9 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private PasswordEncoder  passwordEncoder;
 
     @Override
     public String addStudent(StudentSaveDTO studentSaveDTO) {
@@ -33,13 +39,15 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
                 return ( "Student with email: " + studentSaveDTO.getEmail() + " already exists!!");
             }
 
+            String encodedPassword = passwordEncoder.encode(studentSaveDTO.getPassword());
+
             Student student = new Student(
                     studentSaveDTO.getStudentName(),
                     studentSaveDTO.getAdress(),
                     studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getEmail(),
                     studentSaveDTO.getIdNumber(),
-                    studentSaveDTO.getPassword()
+                    encodedPassword
             );
 
             studentRepository.save(student);
