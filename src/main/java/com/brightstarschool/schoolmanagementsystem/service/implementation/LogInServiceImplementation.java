@@ -1,5 +1,6 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
+import com.brightstarschool.schoolmanagementsystem.dto.LogInResponseDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.LoginDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
@@ -23,13 +24,18 @@ public class LogIn {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String authenticateUser(LoginDTO loginDTO) {
+    public LogInResponseDTO authenticateUser(LoginDTO loginDTO) {
 
         Optional<Student> studentOptional = studentRepository.findByEmail(loginDTO.getEmail());
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
             if (passwordEncoder.matches(loginDTO.getPassword(), student.getPassword())) {
-                return "Student login successful!";
+                return new LogInResponseDTO(
+                        "Student login successful!",
+                        student.getName(),
+                        student.getEmail(),
+                        "student-access-token"
+                );
             }
         }
 
@@ -37,10 +43,20 @@ public class LogIn {
         if (teacherOptional.isPresent()) {
             Teacher teacher = teacherOptional.get();
             if (passwordEncoder.matches(loginDTO.getPassword(), teacher.getPassword())) {
-                return "Teacher login successful!";
+                return new LogInResponseDTO(
+                        "Teacher login successful!",
+                        teacher.getName(),
+                        teacher.getEmail(),
+                        "Teacher-access-token"
+                );
             }
         }
 
-        return "Invalid credentials or user not found!";
+        return new LogInResponseDTO(
+                "Invalid credentials or user not found!",
+                null,
+                null,
+                null
+        );
     }
 }

@@ -13,7 +13,7 @@ public class Teacher {
 
     @NotNull
     @Column(name = "teacher_name", length = 45)
-    private String teacherName;
+    private String name;;
 
     @NotNull
     @Column(name = "adress", length = 60)
@@ -36,10 +36,10 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String teacherName, String adress, String phoneNumber, String email, long idNumber, String password
+    public Teacher(long teacherId, String name, String adress, String phoneNumber, String email, long idNumber, String password
     ) {
         this.teacherId = teacherId;
-        this.teacherName = teacherName;
+        this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -47,8 +47,8 @@ public class Teacher {
         this.password = password;
     }
 
-    public Teacher(String teacherName, String adress, String phoneNumber, String email, long idNumber, String password) {
-        this.teacherName = teacherName;
+    public Teacher(String name, String adress, String phoneNumber, String email, long idNumber, String password) {
+        this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -64,12 +64,12 @@ public class Teacher {
         this.teacherId = teacherId;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getName() {
+        return name;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setTeacherName(String name) {
+        this.name = name;
     }
 
     public String getAdress() {
@@ -116,7 +116,7 @@ public class Teacher {
     public String toString() {
         return "Teacher{" +
                 "teacherId=" + teacherId +
-                ", teacherName='" + teacherName + '\'' +
+                ", teacherName='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +

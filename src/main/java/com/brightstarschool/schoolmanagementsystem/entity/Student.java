@@ -16,7 +16,7 @@ public class Student {
 
     @NotNull
     @Column(name = "student_name", length = 45)
-    private String studentName;
+    private String name;
 
     @NotNull
     @Column(name = "adress", length = 60)
@@ -43,9 +43,9 @@ public class Student {
     public Student() {
     }
 
-    public Student(long studentId, String studentName, String adress, String phoneNumber, String email, long idNumber, String password) {
+    public Student(long studentId, String name, String adress, String phoneNumber, String email, long idNumber, String password) {
         this.studentId = studentId;
-        this.studentName = studentName;
+        this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -53,8 +53,8 @@ public class Student {
         this.password = password;
     }
 
-    public Student(String studentName, String adress, String phoneNumber, String email, long idNumber, String password) {
-        this.studentName = studentName;
+    public Student(String name, String adress, String phoneNumber, String email, long idNumber, String password) {
+        this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -71,12 +71,12 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getName() {
+        return name;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setStudentName(String name) {
+        this.name = name;
     }
 
     public String getAdress() {
@@ -123,7 +123,7 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
-                ", studentName='" + studentName + '\'' +
+                ", studentName='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", idNumber='" + idNumber + '\'' +
