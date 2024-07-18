@@ -19,4 +19,10 @@ public class StudentUpdateDTO {
 
     @NotNull
     private String phoneNumber;
+
+    @NotNull
+    private String email;
+
+    @NotNull
+    private long idNumber;
 }

@@ -3,6 +3,7 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.service.implementation.AuthenticationStudentServiceImpplementation;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,14 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private AuthenticationStudentServiceImpplementation authenticationStudentServiceImpplementation;
+
 
     @PostMapping(path = "/add-students")
     public String saveStudent(@RequestBody StudentSaveDTO studentSaveDTO)
     {
-        String studentName = studentService.addStudent(studentSaveDTO);
+        String studentName = authenticationStudentServiceImpplementation.addStudent(studentSaveDTO);
         return "Name: " + studentName;
     };
 

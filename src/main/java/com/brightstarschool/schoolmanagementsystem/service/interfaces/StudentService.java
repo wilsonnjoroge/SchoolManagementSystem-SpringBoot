@@ -7,7 +7,6 @@ import com.brightstarschool.schoolmanagementsystem.dto.StudentUpdateDTO;
 import java.util.List;
 
 public interface StudentService {
-    String addStudent(StudentSaveDTO studentSaveDTO);
 
     List<StudentDTO> getAllStudents();
 

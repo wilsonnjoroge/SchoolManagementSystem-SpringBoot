@@ -26,6 +26,13 @@ public class Student {
     @Column(name = "phoneNumber", length = 12)
     private String phoneNumber;
 
+    @Column(name = "email", length = 65)
+    private String email;
+
+    @NotNull
+    @Column(name = "idNumber", length = 12)
+    private long idNumber;
+
     @OneToMany(mappedBy = "student")
     private Set<Enrollment> enrollments;
 
@@ -33,17 +40,21 @@ public class Student {
     public Student() {
     }
 
-    public Student(long studentId, String studentName, String adress, String phoneNumber) {
+    public Student(long studentId, String studentName, String adress, String phoneNumber, String email, long idNumber) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.idNumber = idNumber;
     }
 
-    public Student(String studentName, String adress, String phoneNumber) {
+    public Student(String studentName, String adress, String phoneNumber, String email, long idNumber) {
         this.studentName = studentName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.idNumber = idNumber;
     }
 
 
@@ -79,6 +90,21 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public long getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(long idNumber) {
+        this.idNumber = idNumber;
+    }
 
     @Override
     public String toString() {
@@ -87,6 +113,9 @@ public class Student {
                 ", studentName='" + studentName + '\'' +
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", idNumber='" + idNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", enrollments=" + enrollments +
                 '}';
     }
 }
