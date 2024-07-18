@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TeacherService {
-    String addTeacher(TeacherSaveDTO teacherSaveDTO);
 
     List<TeacherDTO> getAllTeachers();
 

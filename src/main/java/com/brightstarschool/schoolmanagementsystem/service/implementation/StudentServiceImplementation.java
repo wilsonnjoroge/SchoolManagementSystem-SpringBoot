@@ -19,26 +19,6 @@ public class StudentServiceImplementation implements StudentService {
     private StudentRepository studentRepository;
 
 
-    @Override
-    public String addStudent(StudentSaveDTO studentSaveDTO) {
-        try {
-            Student student = new Student(
-                    studentSaveDTO.getStudentName(),
-                    studentSaveDTO.getAdress(),
-                    studentSaveDTO.getPhoneNumber()
-            );
-
-            studentRepository.save(student);
-            System.out.println("\nMessage: Student Saved Successfully");
-
-            return student.getStudentName();
-        } catch(Exception ex)
-        {
-            System.out.println(ex.getMessage());
-            throw new RuntimeException(ex);
-        }
-
-    }
 
     @Override
     public List<StudentDTO> getAllStudents() {
@@ -52,7 +32,9 @@ public class StudentServiceImplementation implements StudentService {
                             student.getStudentId(),
                             student.getStudentName(),
                             student.getAdress(),
-                            student.getPhoneNumber()
+                            student.getPhoneNumber(),
+                            student.getEmail(),
+                            student.getIdNumber()
                     );
             studentDTOList.add(studentDTO);
         }
@@ -67,6 +49,7 @@ public class StudentServiceImplementation implements StudentService {
             student.setStudentName(studentUpdateDTO.getStudentName());
             student.setAdress(studentUpdateDTO.getAdress());
             student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
+            student.setEmail(studentUpdateDTO.getEmail());
 
             studentRepository.save(student);
             System.out.println("\nStudent details updated Successfully");

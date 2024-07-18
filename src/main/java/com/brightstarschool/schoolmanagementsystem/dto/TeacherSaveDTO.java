@@ -11,4 +11,5 @@ public class TeacherSaveDTO {
     private String teacherName;
     private String adress;
     private String phoneNumber;
+    private String email;
 }

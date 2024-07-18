@@ -17,27 +17,6 @@ public class TeacherServiceImplementation implements TeacherService {
     private TeacherRepository teacherRepository;
 
     @Override
-    public String addTeacher(TeacherSaveDTO teacherSaveDTO) {
-        try {
-            Teacher teacher = new Teacher(
-                    teacherSaveDTO.getTeacherName(),
-                    teacherSaveDTO.getAdress(),
-                    teacherSaveDTO.getPhoneNumber()
-            );
-
-            teacherRepository.save(teacher);
-            System.out.println("\nMessage: Teacher Saved Successfully");
-
-            return teacher.getTeacherName();
-        } catch(Exception ex)
-        {
-            System.out.println(ex.getMessage());
-            throw new RuntimeException(ex);
-        }
-
-    }
-
-    @Override
     public List<TeacherDTO> getAllTeachers() {
         List<Teacher> getTeacher = teacherRepository.findAll();
         List<TeacherDTO> teacherDTOList = new ArrayList<>();
@@ -49,7 +28,8 @@ public class TeacherServiceImplementation implements TeacherService {
                             teacher.getTeacherId(),
                             teacher.getTeacherName(),
                             teacher.getAdress(),
-                            teacher.getPhoneNumber()
+                            teacher.getPhoneNumber(),
+                            teacher.getEmail()
                     );
             teacherDTOList.add(teacherDTO);
         }
@@ -64,6 +44,7 @@ public class TeacherServiceImplementation implements TeacherService {
             teacher.setTeacherName(teacherUpdateDTO.getTeacherName());
             teacher.setAdress(teacherUpdateDTO.getAdress());
             teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
+            teacher.setEmail(teacherUpdateDTO.getEmail());
 
             teacherRepository.save(teacher);
             System.out.println("\nTeacher details updated Successfully");

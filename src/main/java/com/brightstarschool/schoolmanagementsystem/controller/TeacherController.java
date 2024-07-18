@@ -1,6 +1,7 @@
 package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.*;
+import com.brightstarschool.schoolmanagementsystem.service.implementation.AuthenticationTeacherServiceImpplementation;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,14 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private AuthenticationTeacherServiceImpplementation authenticationTeacherServiceImpplementation;
+
 
     @PostMapping(path = "/add-teachers")
     public String saveTeacher(@RequestBody TeacherSaveDTO teacherSaveDTO)
     {
-        String teacherName = teacherService.addTeacher(teacherSaveDTO);
+        String teacherName = authenticationTeacherServiceImpplementation.addTeacher(teacherSaveDTO);
         return "Name: " + teacherName;
     };
 
