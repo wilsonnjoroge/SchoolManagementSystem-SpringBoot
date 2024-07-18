@@ -29,7 +29,8 @@ public class TeacherServiceImplementation implements TeacherService {
                             teacher.getTeacherName(),
                             teacher.getAdress(),
                             teacher.getPhoneNumber(),
-                            teacher.getEmail()
+                            teacher.getEmail(),
+                            teacher.getIdNumber()
                     );
             teacherDTOList.add(teacherDTO);
         }
@@ -45,6 +46,7 @@ public class TeacherServiceImplementation implements TeacherService {
             teacher.setAdress(teacherUpdateDTO.getAdress());
             teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
             teacher.setEmail(teacherUpdateDTO.getEmail());
+            teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
 
             teacherRepository.save(teacher);
             System.out.println("\nTeacher details updated Successfully");
