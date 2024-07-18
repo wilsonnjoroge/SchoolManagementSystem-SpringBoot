@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeacherSaveDTO {
-    private String teacherName;
+    private String name;
     private String adress;
     private String phoneNumber;
     private String email;

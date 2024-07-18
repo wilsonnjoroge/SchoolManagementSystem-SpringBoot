@@ -40,7 +40,7 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
 
 
             Teacher teacher = new Teacher(
-                    teacherSaveDTO.getTeacherName(),
+                    teacherSaveDTO.getName(),
                     teacherSaveDTO.getAdress(),
                     teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getEmail(),
@@ -51,7 +51,7 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
             teacherRepository.save(teacher);
             System.out.println("\nMessage: Teacher Saved Successfully");
 
-            return teacher.getTeacherName();
+            return teacher.getName();
         } catch(Exception ex)
         {
             System.out.println(ex.getMessage());

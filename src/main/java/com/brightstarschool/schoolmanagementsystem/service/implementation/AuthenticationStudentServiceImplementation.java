@@ -5,8 +5,6 @@ import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuthenticationStudentServiceImpplementation implements AuthenticationStudent {
+public class AuthenticationStudentServiceImplementation implements AuthenticationStudent {
 
     @Autowired
     private StudentRepository studentRepository;
