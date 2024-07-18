@@ -30,7 +30,7 @@ public class StudentServiceImplementation implements StudentService {
             StudentDTO studentDTO = new StudentDTO
                     (
                             student.getStudentId(),
-                            student.getStudentName(),
+                            student.getName(),
                             student.getAdress(),
                             student.getPhoneNumber(),
                             student.getEmail(),
@@ -46,7 +46,7 @@ public class StudentServiceImplementation implements StudentService {
     public String updateStudent(long id, StudentUpdateDTO studentUpdateDTO) {
         if (studentRepository.existsById(id)) {
             Student student = studentRepository.getById(id);
-            student.setStudentName(studentUpdateDTO.getStudentName());
+            student.setStudentName(studentUpdateDTO.getName());
             student.setAdress(studentUpdateDTO.getAdress());
             student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
             student.setEmail(studentUpdateDTO.getEmail());

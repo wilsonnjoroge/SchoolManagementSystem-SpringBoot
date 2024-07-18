@@ -26,7 +26,7 @@ public class TeacherServiceImplementation implements TeacherService {
             TeacherDTO teacherDTO = new TeacherDTO
                     (
                             teacher.getTeacherId(),
-                            teacher.getTeacherName(),
+                            teacher.getName(),
                             teacher.getAdress(),
                             teacher.getPhoneNumber(),
                             teacher.getEmail(),

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class LogIn {
+public class LogInServiceImplementation {
 
     @Autowired
     private StudentRepository studentRepository;

@@ -13,7 +13,7 @@ public class StudentUpdateDTO {
     private long studentId;
 
     @NotNull
-    private String studentName;
+    private String name;
 
     @NotNull
     private String adress;
