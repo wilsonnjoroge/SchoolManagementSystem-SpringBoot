@@ -4,6 +4,7 @@ import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
             Optional<Student> studentEmailExist = studentRepository.findByEmail(studentSaveDTO.getEmail());
             if(studentEmailExist.isPresent())
             {
-                return ("Student with email: " + studentSaveDTO.getEmail() + " already exists!!");
+                return ( "Student with email: " + studentSaveDTO.getEmail() + " already exists!!");
             }
 
             Student student = new Student(
@@ -37,7 +38,8 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
                     studentSaveDTO.getAdress(),
                     studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getEmail(),
-                    studentSaveDTO.getIdNumber()
+                    studentSaveDTO.getIdNumber(),
+                    studentSaveDTO.getPassword()
             );
 
             studentRepository.save(student);

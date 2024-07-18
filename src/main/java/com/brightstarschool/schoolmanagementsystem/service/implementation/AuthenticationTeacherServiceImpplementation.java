@@ -38,7 +38,8 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
                     teacherSaveDTO.getAdress(),
                     teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getEmail(),
-                    teacherSaveDTO.getIdNumber()
+                    teacherSaveDTO.getIdNumber(),
+                    teacherSaveDTO.getPassword()
             );
 
             teacherRepository.save(teacher);

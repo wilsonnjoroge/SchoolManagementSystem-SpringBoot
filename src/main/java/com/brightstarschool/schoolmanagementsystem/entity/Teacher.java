@@ -29,24 +29,31 @@ public class Teacher {
     @Column(name = "idNumber", length = 12)
     private long idNumber;
 
+    @NotNull
+    @Column(name = "password", length = 20)
+    private String password;
+
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String teacherName, String adress, String phoneNumber, String email, long idNumber) {
+    public Teacher(long teacherId, String teacherName, String adress, String phoneNumber, String email, long idNumber, String password
+    ) {
         this.teacherId = teacherId;
         this.teacherName = teacherName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
+        this.password = password;
     }
 
-    public Teacher(String teacherName, String adress, String phoneNumber, String email, long idNumber) {
+    public Teacher(String teacherName, String adress, String phoneNumber, String email, long idNumber, String password) {
         this.teacherName = teacherName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
+        this.password = password;
     }
 
     public long getTeacherId() {
@@ -97,6 +104,13 @@ public class Teacher {
         this.idNumber = idNumber;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     @Override
     public String toString() {
@@ -107,6 +121,7 @@ public class Teacher {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", idNumber='" + idNumber + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
