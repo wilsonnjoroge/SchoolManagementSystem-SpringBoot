@@ -33,6 +33,9 @@ public class Student {
     @Column(name = "idNumber", length = 12)
     private long idNumber;
 
+    @NotNull
+    @Column(name = "password")
+    private String password;
     @OneToMany(mappedBy = "student")
     private Set<Enrollment> enrollments;
 
@@ -40,21 +43,23 @@ public class Student {
     public Student() {
     }
 
-    public Student(long studentId, String studentName, String adress, String phoneNumber, String email, long idNumber) {
+    public Student(long studentId, String studentName, String adress, String phoneNumber, String email, long idNumber, String password) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
+        this.password = password;
     }
 
-    public Student(String studentName, String adress, String phoneNumber, String email, long idNumber) {
+    public Student(String studentName, String adress, String phoneNumber, String email, long idNumber, String password) {
         this.studentName = studentName;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
+        this.password = password;
     }
 
 
@@ -106,6 +111,14 @@ public class Student {
         this.idNumber = idNumber;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -116,6 +129,7 @@ public class Student {
                 ", idNumber='" + idNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", enrollments=" + enrollments +
+                ", password=" + password +
                 '}';
     }
 }

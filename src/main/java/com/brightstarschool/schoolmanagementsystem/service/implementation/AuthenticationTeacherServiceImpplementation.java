@@ -1,11 +1,11 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.dto.TeacherSaveDTO;
-import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationTeacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,6 +15,9 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
 
     @Autowired
     private TeacherRepository teacherRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public String addTeacher(TeacherSaveDTO teacherSaveDTO) {
@@ -33,12 +36,16 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
                 return ("Teacher with email: " + teacherSaveDTO.getEmail() + " already exists!!");
             }
 
+            String encodedPassword = passwordEncoder.encode(teacherSaveDTO.getPassword());
+
+
             Teacher teacher = new Teacher(
                     teacherSaveDTO.getTeacherName(),
                     teacherSaveDTO.getAdress(),
                     teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getEmail(),
-                    teacherSaveDTO.getIdNumber()
+                    teacherSaveDTO.getIdNumber(),
+                    encodedPassword
             );
 
             teacherRepository.save(teacher);
