@@ -42,7 +42,7 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
             String encodedPassword = passwordEncoder.encode(studentSaveDTO.getPassword());
 
             Student student = new Student(
-                    studentSaveDTO.getStudentName(),
+                    studentSaveDTO.getName(),
                     studentSaveDTO.getAdress(),
                     studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getEmail(),
@@ -53,7 +53,7 @@ public class AuthenticationStudentServiceImpplementation implements Authenticati
             studentRepository.save(student);
             System.out.println("\nMessage: Student Saved Successfully");
 
-            return student.getStudentName();
+            return student.getName();
         } catch(Exception ex)
         {
             System.out.println(ex.getMessage());
