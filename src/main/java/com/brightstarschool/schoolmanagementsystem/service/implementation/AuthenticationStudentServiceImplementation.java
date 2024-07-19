@@ -49,9 +49,8 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             );
 
             studentRepository.save(student);
-            System.out.println("\nMessage: Student Saved Successfully");
-
             return student.getName();
+
         } catch(Exception ex)
         {
             System.out.println(ex.getMessage());
