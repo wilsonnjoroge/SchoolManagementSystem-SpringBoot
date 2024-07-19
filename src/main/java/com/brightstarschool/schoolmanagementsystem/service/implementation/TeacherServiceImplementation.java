@@ -47,6 +47,7 @@ public class TeacherServiceImplementation implements TeacherService {
             teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
             teacher.setEmail(teacherUpdateDTO.getEmail());
             teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
+            teacher.setPassword(teacher.getPassword());
 
             teacherRepository.save(teacher);
             System.out.println("\nTeacher details updated Successfully");

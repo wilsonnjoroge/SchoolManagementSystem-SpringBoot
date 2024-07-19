@@ -1,7 +1,8 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.Utils.RandomNumberGenerator;
-import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordDto;
+import com.brightstarschool.schoolmanagementsystem.Utils.TokenHasher;
+import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordResponseDto;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
@@ -24,7 +25,10 @@ public class ForgotPasswordServiceImplementation {
     @Autowired
     private RandomNumberGenerator randomNumberGenerator;
 
-    public ForgotPasswordResponseDto forgotPassword(ForgotPasswordDto forgotPasswordDto)
+    @Autowired
+    private TokenHasher tokenHasher;
+
+    public ForgotPasswordResponseDto forgotPassword(ForgotPasswordDTO forgotPasswordDto)
     {
 
         Optional<Student> studentOptional = studentRepository.findByEmail(forgotPasswordDto.getEmail());
@@ -32,6 +36,10 @@ public class ForgotPasswordServiceImplementation {
             Student student = studentOptional.get();
 
             String token = randomNumberGenerator.generateToken();
+
+            String hashedToken = tokenHasher.hashToken(token);
+            student.setResetToken(hashedToken);
+            studentRepository.save(student);
 
             return new ForgotPasswordResponseDto (
                     "Token send Successfully",
@@ -45,6 +53,10 @@ public class ForgotPasswordServiceImplementation {
             Teacher teacher = teacherOptional.get();
 
             String token = randomNumberGenerator.generateToken();
+
+            String hashedToken = tokenHasher.hashToken(token);
+            teacher.setResetToken(hashedToken);
+            teacherRepository.save(teacher);
 
             return new ForgotPasswordResponseDto (
                     "Token send Successfully",
