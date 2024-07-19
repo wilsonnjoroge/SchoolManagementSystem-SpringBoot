@@ -1,5 +1,6 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
+import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.Utils.RandomNumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.Utils.TokenHasher;
 import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordDTO;
@@ -27,6 +28,8 @@ public class ForgotPasswordServiceImplementation {
 
     @Autowired
     private TokenHasher tokenHasher;
+    @Autowired
+    private EmailsManagement emailsManagement;
 
     public ForgotPasswordResponseDto forgotPassword(ForgotPasswordDTO forgotPasswordDto)
     {
@@ -40,6 +43,10 @@ public class ForgotPasswordServiceImplementation {
             String hashedToken = tokenHasher.hashToken(token);
             student.setResetToken(hashedToken);
             studentRepository.save(student);
+
+            // Prepare email details
+            String emailBody = "Your password reset token is: " + token;
+            emailsManagement.sendEmail(student.getEmail(), "Password Reset Token", emailBody);
 
             return new ForgotPasswordResponseDto (
                     "Token send Successfully",
@@ -57,6 +64,10 @@ public class ForgotPasswordServiceImplementation {
             String hashedToken = tokenHasher.hashToken(token);
             teacher.setResetToken(hashedToken);
             teacherRepository.save(teacher);
+
+            // Prepare email details
+            String emailBody = "Your password reset token is: " + token;
+            emailsManagement.sendEmail(teacher.getEmail(), "Password Reset Token", emailBody);
 
             return new ForgotPasswordResponseDto (
                     "Token send Successfully",
