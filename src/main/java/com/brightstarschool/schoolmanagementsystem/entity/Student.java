@@ -36,6 +36,10 @@ public class Student {
     @NotNull
     @Column(name = "password")
     private String password;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
     @OneToMany(mappedBy = "student")
     private Set<Enrollment> enrollments;
 
@@ -43,7 +47,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(long studentId, String name, String adress, String phoneNumber, String email, long idNumber, String password) {
+    public Student(long studentId, String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
         this.studentId = studentId;
         this.name = name;
         this.adress = adress;
@@ -51,15 +55,17 @@ public class Student {
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.resetToken = resetToken;
     }
 
-    public Student(String name, String adress, String phoneNumber, String email, long idNumber, String password) {
+    public Student(String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
         this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.resetToken = resetToken;
     }
 
 
@@ -119,6 +125,14 @@ public class Student {
         this.password = password;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -130,6 +144,7 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", enrollments=" + enrollments +
                 ", password=" + password +
+                ", resetToken=" + resetToken +
                 '}';
     }
 }

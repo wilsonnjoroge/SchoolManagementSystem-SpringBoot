@@ -33,11 +33,14 @@ public class Teacher {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "reset_token")
+    private String resetToken;
+
+
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String name, String adress, String phoneNumber, String email, long idNumber, String password
-    ) {
+    public Teacher(long teacherId, String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken    ) {
         this.teacherId = teacherId;
         this.name = name;
         this.adress = adress;
@@ -45,15 +48,17 @@ public class Teacher {
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.resetToken = resetToken;
     }
 
-    public Teacher(String name, String adress, String phoneNumber, String email, long idNumber, String password) {
+    public Teacher(String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
         this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.resetToken = resetToken;
     }
 
     public long getTeacherId() {
@@ -112,6 +117,14 @@ public class Teacher {
         return password;
     }
 
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
@@ -122,6 +135,7 @@ public class Teacher {
                 ", email='" + email + '\'' +
                 ", idNumber='" + idNumber + '\'' +
                 ", password='" + password + '\'' +
+                ", resetToken='" + resetToken + '\'' +
                 '}';
     }
 
