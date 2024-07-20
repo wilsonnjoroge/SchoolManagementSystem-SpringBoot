@@ -1,13 +1,19 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "roles")
 public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
+
+    @Column(name = "role_id")
     private long roleId;
+
+    @Column(name = "role_name")
     private String roleName;
 
     public Role() {
