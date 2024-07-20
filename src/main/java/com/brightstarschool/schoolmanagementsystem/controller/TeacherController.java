@@ -12,13 +12,15 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/teachers")
 public class TeacherController {
-
-    @Autowired
     private TeacherService teacherService;
-
-    @Autowired
     private AuthenticationTeacherServiceImpplementation authenticationTeacherServiceImpplementation;
 
+    @Autowired
+    public TeacherController(TeacherService teacherService,
+                             AuthenticationTeacherServiceImpplementation authenticationTeacherServiceImpplementation) {
+        this.teacherService = teacherService;
+        this.authenticationTeacherServiceImpplementation = authenticationTeacherServiceImpplementation;
+    }
 
     @PostMapping(path = "/add-teachers")
     public String saveTeacher(@RequestBody TeacherSaveDTO teacherSaveDTO)

@@ -12,8 +12,12 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/batches")
 public class BatchController {
-    @Autowired
     private BatchService batchService;
+
+    @Autowired
+    public BatchController(BatchService batchService) {
+        this.batchService = batchService;
+    }
 
     @PostMapping(path = "/add-batches")
     public String saveBatch(@RequestBody BatchSaveDTO batchSaveDTO)
