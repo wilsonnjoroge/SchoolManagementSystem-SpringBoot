@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/teachers")roller
+@RequestMapping("api/v1/teachers")
 public class TeacherController {
     private TeacherService teacherService;
     private AuthenticationTeacherServiceImpplementation authenticationTeacherServiceImpplementation;
