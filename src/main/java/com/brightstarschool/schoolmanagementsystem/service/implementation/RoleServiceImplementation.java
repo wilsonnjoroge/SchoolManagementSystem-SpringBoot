@@ -3,12 +3,15 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Role;
+import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.RoleRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +47,21 @@ public class RoleServiceImplementation implements RoleService {
 
     @Override
     public List<RoleDTO> getAllRoles() {
-        return null;
+        List<Role> getRole = roleRepository.findAll();
+        List<RoleDTO> roleDTOList = new ArrayList<>();
+
+        for(Role role : getRole)
+        {
+            RoleDTO roleDTO = new RoleDTO
+                    (
+                            role.getId(),
+                            role.getRoleId(),
+                            role.getRoleName()
+                    );
+            roleDTOList.add(roleDTO);
+        }
+
+        return roleDTOList;
     }
 
     @Override
