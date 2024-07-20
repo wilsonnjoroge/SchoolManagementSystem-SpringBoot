@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping(path = "api/v1/authentication")
 public class AuthenticationController {
-
-    @Autowired
     private LogInServiceImplementation logInServiceImplementation;
-
-    @Autowired
     private ForgotPasswordServiceImplementation forgotPasswordServiceImplementation;
+    private ResetPasswordServiceImplementation resetPasswordService;
 
     @Autowired
-    private ResetPasswordServiceImplementation resetPasswordService;
+    public AuthenticationController(
+            LogInServiceImplementation logInServiceImplementation,
+            ForgotPasswordServiceImplementation forgotPasswordServiceImplementation,
+            ResetPasswordServiceImplementation resetPasswordService
+    ) {
+        this.logInServiceImplementation = logInServiceImplementation;
+        this.forgotPasswordServiceImplementation = forgotPasswordServiceImplementation;
+        this.resetPasswordService = resetPasswordService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LogInResponseDTO> login(@RequestBody LoginDTO loginDTO) {
