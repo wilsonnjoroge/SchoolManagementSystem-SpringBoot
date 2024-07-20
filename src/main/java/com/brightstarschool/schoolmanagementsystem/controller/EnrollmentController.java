@@ -16,8 +16,12 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(path = "api/v1/enrollments")
 public class EnrollmentController {
-    @Autowired
     private EnrollmentService enrollmentService;
+
+    @Autowired
+    public EnrollmentController(EnrollmentService enrollmentService) {
+        this.enrollmentService = enrollmentService;
+    }
 
     @PostMapping("/add-enrollments")
     public String saveEnrollment(@RequestBody EnrollmentSaveDTO enrollmentSaveDTO)

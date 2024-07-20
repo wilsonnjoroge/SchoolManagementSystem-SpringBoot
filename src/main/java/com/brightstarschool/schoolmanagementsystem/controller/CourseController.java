@@ -12,8 +12,12 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/courses")
 public class CourseController {
-    @Autowired
     private CourseService courseService;
+
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @PostMapping(path = "/add-courses")
     public String saveCourse(@RequestBody CourseSaveDTO courseSaveDTO)

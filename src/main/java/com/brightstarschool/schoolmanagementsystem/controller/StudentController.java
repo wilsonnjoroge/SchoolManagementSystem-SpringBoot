@@ -14,13 +14,17 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/v1/students")
 public class StudentController {
-
-    @Autowired
     private StudentService studentService;
 
-    @Autowired
     private AuthenticationStudentServiceImplementation authenticationStudentServiceImplementation;
 
+    @Autowired
+    public StudentController(
+            StudentService studentService,
+            AuthenticationStudentServiceImplementation authenticationStudentServiceImplementation) {
+        this.studentService = studentService;
+        this.authenticationStudentServiceImplementation = authenticationStudentServiceImplementation;
+    }
 
     @PostMapping(path = "/add-students")
     public String saveStudent(@RequestBody StudentSaveDTO studentSaveDTO)
