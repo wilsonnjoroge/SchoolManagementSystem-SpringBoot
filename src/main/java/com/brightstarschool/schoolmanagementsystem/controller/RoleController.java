@@ -41,4 +41,14 @@ public class RoleController {
         String response = roleService.updateRole(id, roleUpdateDTO);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping(path = "/delete-role/{id}")
+    public String deleteRole(@PathVariable("id") long id) {
+        boolean deleteRole = roleService.deleteRole(id);
+        if (deleteRole) {
+            return "Role deleted successfully";
+        } else {
+            return "Role ID not found";
+        }
+    }
 }

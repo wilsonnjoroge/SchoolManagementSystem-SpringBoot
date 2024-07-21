@@ -46,13 +46,13 @@ public class StudentController {
         return updatedStudent;
     }
 
-    @DeleteMapping(path = "/delete-role/{id}")
-    public String deleteRole(@PathVariable("id") long id) {
-        boolean deleteRole = studentService.deleteStudent(id);
-        if (deleteRole) {
-            return "Role deleted successfully";
+    @DeleteMapping(path = "/delete-student/{id}")
+    public String deleteStudent(@PathVariable("id") long id) {
+        boolean deleteStudent = studentService.deleteStudent(id);
+        if (deleteStudent) {
+            return "Student deleted successfully";
         } else {
-            return "Role ID not found";
+            return "Student ID not found";
         }
     }
 
