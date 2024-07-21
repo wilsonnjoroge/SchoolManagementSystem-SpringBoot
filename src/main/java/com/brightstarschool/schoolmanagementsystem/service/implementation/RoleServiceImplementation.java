@@ -66,7 +66,18 @@ public class RoleServiceImplementation implements RoleService {
 
     @Override
     public String updateRole(long id, RoleUpdateDTO roleUpdateDTO) {
-        return null;
+        if (roleRepository.existsById(id)) {
+            Role role = roleRepository.getById(id);
+            role.setRoleId(roleUpdateDTO.getRoleId());
+            role.setRoleName(roleUpdateDTO.getRoleName());
+
+            roleRepository.save(role);
+            System.out.println("\nRole details updated Successfully");
+            return "Role details updated Successfully";
+        }else {
+            System.out.println("\nRole ID not Found");
+            return "Role ID not Found";
+        }
     }
 
     @Override

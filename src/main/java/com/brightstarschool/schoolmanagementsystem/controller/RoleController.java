@@ -3,6 +3,7 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.RoleDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.RoleUpdateDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Role;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(path = "api/v1/roles")
 public class RoleController {
-    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @PostMapping(path = "/add-role")
     public ResponseEntity<String> createRole(@RequestBody RoleSaveDTO roleSaveDTO) {
@@ -28,5 +33,12 @@ public class RoleController {
     public ResponseEntity<List<RoleDTO>> getAllRoles() {
         List<RoleDTO> roles = roleService.getAllRoles();
         return ResponseEntity.ok(roles);
+    }
+
+    @PutMapping(path = "/update-role/{id}")
+    public ResponseEntity<String> updateRole(@PathVariable("id") long id, @RequestBody RoleUpdateDTO roleUpdateDTO)
+    {
+        String response = roleService.updateRole(id, roleUpdateDTO);
+        return ResponseEntity.ok(response);
     }
 }
