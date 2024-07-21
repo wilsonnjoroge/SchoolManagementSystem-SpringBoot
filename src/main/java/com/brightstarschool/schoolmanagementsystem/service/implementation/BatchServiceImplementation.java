@@ -17,11 +17,15 @@ import java.util.List;
 
 @Service
 public class BatchServiceImplementation implements BatchService {
-    @Autowired
     private BatchRepository batchRepository;
+    private CourseRepository courseRepository;
 
     @Autowired
-    private CourseRepository courseRepository;
+    public BatchServiceImplementation(BatchRepository batchRepository,
+                                      CourseRepository courseRepository) {
+        this.batchRepository = batchRepository;
+        this.courseRepository = courseRepository;
+    }
 
     @Override
     public String addBatch(BatchSaveDTO batchSaveDTO) {

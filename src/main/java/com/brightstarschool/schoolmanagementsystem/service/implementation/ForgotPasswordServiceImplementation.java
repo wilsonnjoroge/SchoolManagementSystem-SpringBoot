@@ -16,20 +16,24 @@ import java.util.Optional;
 
 @Service
 public class ForgotPasswordServiceImplementation {
-
-    @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
     private TeacherRepository teacherRepository;
-
-    @Autowired
     private RandomNumberGenerator randomNumberGenerator;
+    private TokenHasher tokenHasher;
+    private EmailsManagement emailsManagement;
 
     @Autowired
-    private TokenHasher tokenHasher;
-    @Autowired
-    private EmailsManagement emailsManagement;
+    public ForgotPasswordServiceImplementation(StudentRepository studentRepository,
+                                               TeacherRepository teacherRepository,
+                                               RandomNumberGenerator randomNumberGenerator,
+                                               TokenHasher tokenHasher,
+                                               EmailsManagement emailsManagement) {
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
+        this.randomNumberGenerator = randomNumberGenerator;
+        this.tokenHasher = tokenHasher;
+        this.emailsManagement = emailsManagement;
+    }
 
     public ForgotPasswordResponseDto forgotPassword(ForgotPasswordDTO forgotPasswordDto)
     {
