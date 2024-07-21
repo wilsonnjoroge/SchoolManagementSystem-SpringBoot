@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleUpdateDTO {
-    private long id;
     private long roleCode;
     private String roleName;
 }
