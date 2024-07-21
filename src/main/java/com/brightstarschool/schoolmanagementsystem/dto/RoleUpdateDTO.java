@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoleUpdateDTO {
     private long id;
-    private long roleId;
+    private long roleCode;
     private String roleName;
 }
