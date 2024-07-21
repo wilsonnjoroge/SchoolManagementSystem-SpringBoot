@@ -27,22 +27,22 @@ public class RoleServiceImplementation implements RoleService {
 
     @Override
     public String addRole(RoleSaveDTO roleSaveDTO) {
-        Optional<Role> roleExists = roleRepository.findByRoleId(roleSaveDTO.getRoleId());
+        Optional<Role> roleExists = roleRepository.findByRoleCode(roleSaveDTO.getRoleCode());
 
         if(roleExists.isPresent())
         {
-            return ("Role with id: " + roleSaveDTO.getRoleId() + " already exists!!");
+            return ("Role with id: " + roleSaveDTO.getRoleCode() + " already exists!!");
         }
 
         Role role = new Role
                 (
-                    roleSaveDTO.getRoleId(),
+                    roleSaveDTO.getRoleCode(),
                     roleSaveDTO.getRoleName()
                 );
 
         roleRepository.save(role);
 
-        return ("Role with id: " + roleSaveDTO.getRoleId() + " saved successfully");
+        return ("Role with id: " + roleSaveDTO.getRoleCode() + " saved successfully");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RoleServiceImplementation implements RoleService {
             RoleDTO roleDTO = new RoleDTO
                     (
                             role.getId(),
-                            role.getRoleId(),
+                            role.getRoleCode(),
                             role.getRoleName()
                     );
             roleDTOList.add(roleDTO);
@@ -65,10 +65,10 @@ public class RoleServiceImplementation implements RoleService {
     }
 
     @Override
-    public String updateRole(long id, RoleUpdateDTO roleUpdateDTO) {
-        if (roleRepository.existsById(id)) {
-            Role role = roleRepository.getById(id);
-            role.setRoleId(roleUpdateDTO.getRoleId());
+    public String updateRole(long roleCode, RoleUpdateDTO roleUpdateDTO) {
+        if (roleRepository.existsById(roleCode)) {
+            Role role = roleRepository.getById(roleCode);
+            role.setRoleCode(roleUpdateDTO.getRoleCode());
             role.setRoleName(roleUpdateDTO.getRoleName());
 
             roleRepository.save(role);

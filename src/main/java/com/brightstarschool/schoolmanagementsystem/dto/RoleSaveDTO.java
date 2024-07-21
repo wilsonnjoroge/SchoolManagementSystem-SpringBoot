@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleSaveDTO {
-    private long roleId;
+    private long roleCode;
     private String roleName;
 }

@@ -10,8 +10,8 @@ public class Role {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "role_id")
-    private long roleId;
+    @Column(name = "role_code")
+    private long roleCode;
 
     @Column(name = "role_name")
     private String roleName;
@@ -19,14 +19,14 @@ public class Role {
     public Role() {
     }
 
-    public Role(long id, long roleId, String roleName) {
+    public Role(long id, long roleCode, String roleName) {
         this.id = id;
-        this.roleId = roleId;
+        this.roleCode = roleCode;
         this.roleName = roleName;
     }
 
-    public Role(long roleId, String roleName) {
-        this.roleId = roleId;
+    public Role(long roleCode, String roleName) {
+        this.roleCode = roleCode;
         this.roleName = roleName;
     }
 
@@ -38,12 +38,12 @@ public class Role {
         this.id = id;
     }
 
-    public long getRoleId() {
-        return roleId;
+    public long getRoleCode() {
+        return roleCode;
     }
 
-    public void setRoleId(long roleId) {
-        this.roleId = roleId;
+    public void setRoleCode(long roleId) {
+        this.roleCode = roleCode;
     }
 
     public String getRoleName() {
@@ -58,7 +58,7 @@ public class Role {
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", roleId=" + roleId +
+                ", roleId=" + roleCode +
                 ", roleName='" + roleName + '\'' +
                 '}';
     }
