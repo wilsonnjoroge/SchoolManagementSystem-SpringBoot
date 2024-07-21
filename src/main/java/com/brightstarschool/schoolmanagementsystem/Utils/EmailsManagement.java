@@ -7,8 +7,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 public class EmailsManagement {
-    @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    public EmailsManagement(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     public void sendEmail(String to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
