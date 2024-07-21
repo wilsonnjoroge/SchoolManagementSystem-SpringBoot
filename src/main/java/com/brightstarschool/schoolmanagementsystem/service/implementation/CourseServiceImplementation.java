@@ -14,8 +14,12 @@ import java.util.List;
 
 @Service
 public class CourseServiceImplementation implements CourseService {
-    @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    public CourseServiceImplementation(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
 
     @Override
     public String addCourse(CourseSaveDTO courseSaveDTO) {

@@ -12,9 +12,13 @@ import java.util.List;
 
 @Service
 public class TeacherServiceImplementation implements TeacherService {
+    private TeacherRepository teacherRepository;
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    public TeacherServiceImplementation(TeacherRepository teacherRepository)
+    {
+        this.teacherRepository = teacherRepository;
+    }
 
     @Override
     public List<TeacherDTO> getAllTeachers() {

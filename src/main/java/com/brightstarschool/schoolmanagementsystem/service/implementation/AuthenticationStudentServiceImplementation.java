@@ -13,12 +13,15 @@ import java.util.Optional;
 
 @Service
 public class AuthenticationStudentServiceImplementation implements AuthenticationStudent {
-
-    @Autowired
     private StudentRepository studentRepository;
+    private PasswordEncoder  passwordEncoder;
 
     @Autowired
-    private PasswordEncoder  passwordEncoder;
+    public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
+                                                      PasswordEncoder passwordEncoder) {
+        this.studentRepository = studentRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public String addStudent(StudentSaveDTO studentSaveDTO) {

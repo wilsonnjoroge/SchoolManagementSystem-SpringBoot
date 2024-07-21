@@ -14,15 +14,18 @@ import java.util.Optional;
 
 @Service
 public class LogInServiceImplementation {
-
-    @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
     private TeacherRepository teacherRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public LogInServiceImplementation(StudentRepository studentRepository,
+                                      TeacherRepository teacherRepository,
+                                      PasswordEncoder passwordEncoder) {
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public LogInResponseDTO authenticateUser(LoginDTO loginDTO) {
 

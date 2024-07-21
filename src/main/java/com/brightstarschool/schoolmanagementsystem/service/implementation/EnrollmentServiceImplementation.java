@@ -22,14 +22,21 @@ import java.util.Optional;
 
 @Service
 public class EnrollmentServiceImplementation implements EnrollmentService {
-    @Autowired
     private EnrollmentRepository enrollmentRepository;
-    @Autowired
     private StudentRepository studentRepository;
-    @Autowired
     private CourseRepository courseRepository;
-    @Autowired
     private BatchRepository batchRepository;
+
+    @Autowired
+    public EnrollmentServiceImplementation(EnrollmentRepository enrollmentRepository,
+                                           StudentRepository studentRepository,
+                                           CourseRepository courseRepository,
+                                           BatchRepository batchRepository) {
+        this.enrollmentRepository = enrollmentRepository;
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
+        this.batchRepository = batchRepository;
+    }
 
     @Override
     public String addEnrollment(EnrollmentSaveDTO enrollmentSaveDTO) {

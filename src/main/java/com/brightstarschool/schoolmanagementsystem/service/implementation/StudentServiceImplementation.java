@@ -14,11 +14,12 @@ import java.util.List;
 
 @Service
 public class StudentServiceImplementation implements StudentService {
-
-    @Autowired
     private StudentRepository studentRepository;
 
-
+    @Autowired
+    public StudentServiceImplementation(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     @Override
     public List<StudentDTO> getAllStudents() {

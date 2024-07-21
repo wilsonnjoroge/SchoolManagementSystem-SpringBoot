@@ -15,18 +15,21 @@ import java.util.Optional;
 
 @Service
 public class ResetPasswordServiceImplementation {
-
-    @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
     private TeacherRepository teacherRepository;
-
-    @Autowired
     private TokenHasher tokenHasher;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public ResetPasswordServiceImplementation(StudentRepository studentRepository,
+                                              TeacherRepository teacherRepository,
+                                              TokenHasher tokenHasher,
+                                              PasswordEncoder passwordEncoder) {
+        this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
+        this.tokenHasher = tokenHasher;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public ResetPasswordResponseDTO resetPassword(ResetPasswordDTO resetPasswordDTO) {
 
