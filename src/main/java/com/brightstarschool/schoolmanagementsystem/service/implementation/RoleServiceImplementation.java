@@ -82,6 +82,13 @@ public class RoleServiceImplementation implements RoleService {
 
     @Override
     public boolean deleteRole(long id) {
-        return false;
+        if (roleRepository.existsById(id)) {
+            roleRepository.deleteById(id);
+            System.out.println("\nRole deleted successfully");
+            return true;
+        } else {
+            System.out.println("\nRole Code not found");
+            return false;
+        }
     }
 }
