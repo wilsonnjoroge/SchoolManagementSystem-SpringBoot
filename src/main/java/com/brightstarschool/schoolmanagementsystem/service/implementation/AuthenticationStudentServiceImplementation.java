@@ -53,7 +53,10 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     studentSaveDTO.getEmail(),
                     studentSaveDTO.getIdNumber(),
                     encodedPassword,
-                    ""
+                    "",
+                    "",
+                    false,
+                    false
             );
 
             studentRepository.save(student);
