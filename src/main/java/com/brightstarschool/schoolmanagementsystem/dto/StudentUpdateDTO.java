@@ -19,7 +19,7 @@ public class StudentUpdateDTO {
     private String adress;
 
     @NotNull
-    private String phoneNumber;
+    private long phoneNumber;
 
     @NotNull
     private String email;

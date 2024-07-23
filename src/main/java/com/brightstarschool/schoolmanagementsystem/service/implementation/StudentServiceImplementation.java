@@ -73,7 +73,9 @@ public class StudentServiceImplementation implements StudentService {
             Student student = studentRepository.getById(id);
             student.setDeleted(true);
 
+            studentRepository.save(student);
             return true;
+
         } else {
             System.out.println("\nStudent ID not found");
             return false;

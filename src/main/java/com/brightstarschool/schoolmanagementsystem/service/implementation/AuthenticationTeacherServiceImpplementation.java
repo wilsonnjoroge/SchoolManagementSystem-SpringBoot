@@ -49,8 +49,8 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
             Teacher teacher = new Teacher(
                     teacherSaveDTO.getName(),
                     teacherSaveDTO.getAdress(),
-                    teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getEmail(),
+                    teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getIdNumber(),
                     encodedPassword,
                     "",

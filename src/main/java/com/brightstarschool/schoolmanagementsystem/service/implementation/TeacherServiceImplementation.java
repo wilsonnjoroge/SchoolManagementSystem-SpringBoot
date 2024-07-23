@@ -68,8 +68,10 @@ public class TeacherServiceImplementation implements TeacherService {
     @Override
     public boolean deleteTeacher(long id) {
         if (teacherRepository.existsById(id)) {
-            teacherRepository.deleteById(id);
-            System.out.println("\nTeacher deleted successfully");
+            Teacher teacher = teacherRepository.getById(id);
+            teacher.setDeleted(true);
+
+            teacherRepository.save(teacher);
             return true;
         } else {
             System.out.println("\nTeacher ID not found");

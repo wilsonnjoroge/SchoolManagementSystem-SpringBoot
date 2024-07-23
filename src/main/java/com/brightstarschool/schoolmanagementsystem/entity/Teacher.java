@@ -1,6 +1,8 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
@@ -21,10 +23,13 @@ public class Teacher {
 
     @Column(name = "email", length = 65)
     private String email;
+
+    @Setter
     @NotNull
     @Column(name = "phoneNumber")
-    private String phoneNumber;
+    private long phoneNumber;
 
+    @Getter
     @NotNull
     @Column(name = "idNumber", length = 12)
     private long idNumber;
@@ -53,7 +58,7 @@ public class Teacher {
                    String name,
                    String adress,
                    String email,
-                   String phoneNumber,
+                   long phoneNumber,
                    long idNumber,
                    String password,
                    String resetToken,
@@ -76,7 +81,7 @@ public class Teacher {
     public Teacher(String name,
                    String adress,
                    String email,
-                   String phoneNumber,
+                   long phoneNumber,
                    long idNumber,
                    String password,
                    String resetToken,
@@ -127,16 +132,12 @@ public class Teacher {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public long getIdNumber() {
-        return idNumber;
     }
 
     public void setIdNumber(long idNumber) {

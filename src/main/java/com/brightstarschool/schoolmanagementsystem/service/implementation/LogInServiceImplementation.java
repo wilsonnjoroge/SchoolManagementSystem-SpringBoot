@@ -32,7 +32,7 @@ public class LogInServiceImplementation {
         Optional<Student> studentOptional = studentRepository.findByEmail(loginDTO.getEmail());
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
-            if (passwordEncoder.matches(loginDTO.getPassword(), student.getPassword())) {
+            if (passwordEncoder.matches(loginDTO.getPassword(), student.getPassword()) && !student.isDeleted()) {
                 return new LogInResponseDTO(
                         "Student login successful!",
                         student.getName(),
@@ -40,17 +40,37 @@ public class LogInServiceImplementation {
                         "student-access-token"
                 );
             }
+
+            if(student.isDeleted())
+            {
+                return new LogInResponseDTO(
+                        "Account with the below credentials is already deleted",
+                        student.getName(),
+                        student.getEmail(),
+                        ""
+                );
+            }
         }
 
         Optional<Teacher> teacherOptional = teacherRepository.findByEmail(loginDTO.getEmail());
         if (teacherOptional.isPresent()) {
             Teacher teacher = teacherOptional.get();
-            if (passwordEncoder.matches(loginDTO.getPassword(), teacher.getPassword())) {
+            if (passwordEncoder.matches(loginDTO.getPassword(), teacher.getPassword()) && !teacher.isDeleted()) {
                 return new LogInResponseDTO(
                         "Teacher login successful!",
                         teacher.getName(),
                         teacher.getEmail(),
                         "Teacher-access-token"
+                );
+            }
+
+            if(teacher.isDeleted())
+            {
+                return new LogInResponseDTO(
+                        "Account with the below credentials is already deleted",
+                        teacher.getName(),
+                        teacher.getEmail(),
+                        ""
                 );
             }
         }
