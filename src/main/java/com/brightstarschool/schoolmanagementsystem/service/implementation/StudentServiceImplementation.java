@@ -35,7 +35,11 @@ public class StudentServiceImplementation implements StudentService {
                             student.getAdress(),
                             student.getPhoneNumber(),
                             student.getEmail(),
-                            student.getIdNumber()
+                            student.getIdNumber(),
+                            student.getAccessToken(),
+                            student.getResetToken(),
+                            student.isEmailVerified(),
+                            student.isDeleted()
                     );
             studentDTOList.add(studentDTO);
         }
@@ -47,12 +51,11 @@ public class StudentServiceImplementation implements StudentService {
     public String updateStudent(long id, StudentUpdateDTO studentUpdateDTO) {
         if (studentRepository.existsById(id)) {
             Student student = studentRepository.getById(id);
-            student.setStudentName(studentUpdateDTO.getName());
+            student.setName(studentUpdateDTO.getName());
             student.setAdress(studentUpdateDTO.getAdress());
             student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
             student.setEmail(studentUpdateDTO.getEmail());
             student.setIdNumber(studentUpdateDTO.getIdNumber());
-            student.setPassword(studentUpdateDTO.getPassword());
 
             studentRepository.save(student);
             System.out.println("\nStudent details updated Successfully");
@@ -66,8 +69,10 @@ public class StudentServiceImplementation implements StudentService {
     @Override
     public boolean deleteStudent(long id) {
         if (studentRepository.existsById(id)) {
-            studentRepository.deleteById(id);
-            System.out.println("\nStudent deleted successfully");
+
+            Student student = studentRepository.getById(id);
+            student.setDeleted(true);
+
             return true;
         } else {
             System.out.println("\nStudent ID not found");

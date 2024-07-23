@@ -15,5 +15,8 @@ public class TeacherDTO {
     private String phoneNumber;
     private String email;
     private long idNumber;
-   //private String password;
+    private String accessToken;
+    private String resetToken;
+    private boolean isEmailVerified;
+    private boolean isDeleted;
 }

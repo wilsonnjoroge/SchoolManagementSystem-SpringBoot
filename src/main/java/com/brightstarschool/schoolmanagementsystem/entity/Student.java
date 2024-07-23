@@ -37,8 +37,17 @@ public class Student {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "access_token")
+    private String accessToken;
+
     @Column(name = "reset_token")
     private String resetToken;
+
+    @Column(name = "is_email_verified")
+    private boolean isEmailVerified;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @OneToMany(mappedBy = "student")
     private Set<Enrollment> enrollments;
@@ -47,7 +56,17 @@ public class Student {
     public Student() {
     }
 
-    public Student(long studentId, String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
+    public Student(long studentId,
+                   String name,
+                   String adress,
+                   String phoneNumber,
+                   String email,
+                   long idNumber,
+                   String password,
+                   String accessToken,
+                   String resetToken,
+                   boolean isEmailVerified,
+                   boolean isDeleted) {
         this.studentId = studentId;
         this.name = name;
         this.adress = adress;
@@ -55,17 +74,33 @@ public class Student {
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.accessToken = accessToken;
         this.resetToken = resetToken;
+        this.isEmailVerified = isEmailVerified;
+        this.isDeleted = isDeleted;
     }
 
-    public Student(String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
+    public Student(String name,
+                   String adress,
+                   String phoneNumber,
+                   String email,
+                   long idNumber,
+                   String password,
+                   String accessToken,
+                   String resetToken,
+                   boolean isEmailVerified,
+                   boolean isDeleted) {
         this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.idNumber = idNumber;
         this.password = password;
+        this.accessToken = accessToken;
         this.resetToken = resetToken;
+        this.isEmailVerified = isEmailVerified;
+        this.isDeleted = isDeleted;
+        this.enrollments = enrollments;
     }
 
 
@@ -81,7 +116,7 @@ public class Student {
         return name;
     }
 
-    public void setStudentName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -101,12 +136,12 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setEmail(String email){
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
-    public String getEmail(){
-        return email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long getIdNumber() {
@@ -125,6 +160,14 @@ public class Student {
         this.password = password;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     public String getResetToken() {
         return resetToken;
     }
@@ -133,18 +176,45 @@ public class Student {
         this.resetToken = resetToken;
     }
 
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Set<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = enrollments;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
-                ", studentName='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", idNumber='" + idNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", idNumber=" + idNumber +
+                ", password='" + password + '\'' +
+                ", accessToken='" + accessToken + '\'' +
+                ", resetToken='" + resetToken + '\'' +
+                ", isEmailVerified=" + isEmailVerified +
+                ", isDeleted=" + isDeleted +
                 ", enrollments=" + enrollments +
-                ", password=" + password +
-                ", resetToken=" + resetToken +
                 '}';
     }
 }
