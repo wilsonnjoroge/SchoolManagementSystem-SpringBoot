@@ -1,6 +1,7 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
@@ -15,12 +16,15 @@ import java.util.Optional;
 public class AuthenticationStudentServiceImplementation implements AuthenticationStudent {
     private StudentRepository studentRepository;
     private PasswordEncoder  passwordEncoder;
+    private EmailsManagement emailsManagement;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
-                                                      PasswordEncoder passwordEncoder) {
+                                                      PasswordEncoder passwordEncoder,
+                                                      EmailsManagement emailsManagement) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailsManagement = emailsManagement;
     }
 
     @Override
@@ -53,6 +57,10 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             );
 
             studentRepository.save(student);
+
+            String emailBody = "Dear " + studentSaveDTO.getName() + ", \nWelcome to Bright Star School. We are pleased to have you aboard.";
+            emailsManagement.sendEmail(studentSaveDTO.getEmail(),"Registration Successfull", emailBody);
+
             return student.getName();
 
         } catch(Exception ex)
