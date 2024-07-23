@@ -22,12 +22,12 @@ public class Student {
     @Column(name = "adress", length = 60)
     private String adress;
 
-    @NotNull
-    @Column(name = "phoneNumber", length = 12)
-    private String phoneNumber;
-
     @Column(name = "email", length = 65)
     private String email;
+
+    @NotNull
+    @Column(name = "phoneNumber", length = 12)
+    private long phoneNumber;
 
     @NotNull
     @Column(name = "idNumber", length = 12)
@@ -59,7 +59,7 @@ public class Student {
     public Student(long studentId,
                    String name,
                    String adress,
-                   String phoneNumber,
+                   long phoneNumber,
                    String email,
                    long idNumber,
                    String password,
@@ -82,7 +82,7 @@ public class Student {
 
     public Student(String name,
                    String adress,
-                   String phoneNumber,
+                   long phoneNumber,
                    String email,
                    long idNumber,
                    String password,
@@ -128,11 +128,11 @@ public class Student {
         this.adress = adress;
     }
 
-    public String getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
