@@ -34,7 +34,11 @@ public class TeacherServiceImplementation implements TeacherService {
                             teacher.getAdress(),
                             teacher.getPhoneNumber(),
                             teacher.getEmail(),
-                            teacher.getIdNumber()
+                            teacher.getIdNumber(),
+                            teacher.getAccessToken(),
+                            teacher.getResetToken(),
+                            teacher.isEmailVerified(),
+                            teacher.isDeleted()
                     );
             teacherDTOList.add(teacherDTO);
         }
@@ -46,12 +50,11 @@ public class TeacherServiceImplementation implements TeacherService {
     public String updateTeacher(long id, TeacherUpdateDTO teacherUpdateDTO) {
         if (teacherRepository.existsById(id)) {
             Teacher teacher = teacherRepository.getById(id);
-            teacher.setTeacherName(teacherUpdateDTO.getTeacherName());
+            teacher.setName(teacherUpdateDTO.getTeacherName());
             teacher.setAdress(teacherUpdateDTO.getAdress());
             teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
             teacher.setEmail(teacherUpdateDTO.getEmail());
             teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
-            teacher.setPassword(teacher.getPassword());
 
             teacherRepository.save(teacher);
             System.out.println("\nTeacher details updated Successfully");

@@ -22,7 +22,7 @@ public class Teacher {
     @Column(name = "email", length = 65)
     private String email;
     @NotNull
-    @Column(name = "phoneNumber", length = 12)
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     @NotNull
@@ -36,29 +36,63 @@ public class Teacher {
     @Column(name = "reset_token")
     private String resetToken;
 
+    @Column(name = "access_token")
+    private String accessToken;
+
+    @Column(name = "is_email_verified")
+    private boolean isEmailVerified;
+
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
 
     public Teacher() {
     }
 
-    public Teacher(long teacherId, String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken    ) {
+    public Teacher(long teacherId,
+                   String name,
+                   String adress,
+                   String email,
+                   String phoneNumber,
+                   long idNumber,
+                   String password,
+                   String resetToken,
+                   String accessToken,
+                   boolean isEmailVerified,
+                   boolean isDeleted) {
         this.teacherId = teacherId;
         this.name = name;
         this.adress = adress;
-        this.phoneNumber = phoneNumber;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
         this.password = password;
         this.resetToken = resetToken;
+        this.accessToken = accessToken;
+        this.isEmailVerified = isEmailVerified;
+        this.isDeleted = isDeleted;
     }
 
-    public Teacher(String name, String adress, String phoneNumber, String email, long idNumber, String password, String resetToken) {
+    public Teacher(String name,
+                   String adress,
+                   String email,
+                   String phoneNumber,
+                   long idNumber,
+                   String password,
+                   String resetToken,
+                   String accessToken,
+                   boolean isEmailVerified,
+                   boolean isDeleted) {
         this.name = name;
         this.adress = adress;
-        this.phoneNumber = phoneNumber;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
         this.password = password;
         this.resetToken = resetToken;
+        this.accessToken = accessToken;
+        this.isEmailVerified = isEmailVerified;
+        this.isDeleted = isDeleted;
     }
 
     public long getTeacherId() {
@@ -73,7 +107,7 @@ public class Teacher {
         return name;
     }
 
-    public void setTeacherName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -85,20 +119,20 @@ public class Teacher {
         this.adress = adress;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public long getIdNumber() {
@@ -109,12 +143,12 @@ public class Teacher {
         this.idNumber = idNumber;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getResetToken() {
@@ -125,18 +159,44 @@ public class Teacher {
         this.resetToken = resetToken;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
                 "teacherId=" + teacherId +
-                ", teacherName='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", idNumber='" + idNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", idNumber=" + idNumber +
                 ", password='" + password + '\'' +
                 ", resetToken='" + resetToken + '\'' +
+                ", accessToken='" + accessToken + '\'' +
+                ", isEmailVerified=" + isEmailVerified +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
-
 }

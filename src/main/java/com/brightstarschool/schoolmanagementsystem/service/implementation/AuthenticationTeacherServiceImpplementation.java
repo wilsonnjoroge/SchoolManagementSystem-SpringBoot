@@ -53,7 +53,10 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
                     teacherSaveDTO.getEmail(),
                     teacherSaveDTO.getIdNumber(),
                     encodedPassword,
-                    ""
+                    "",
+                    "",
+                    false,
+                    false
             );
 
             teacherRepository.save(teacher);

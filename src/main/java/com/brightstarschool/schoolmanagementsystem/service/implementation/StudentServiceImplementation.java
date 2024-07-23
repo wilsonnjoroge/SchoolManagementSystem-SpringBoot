@@ -56,7 +56,6 @@ public class StudentServiceImplementation implements StudentService {
             student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
             student.setEmail(studentUpdateDTO.getEmail());
             student.setIdNumber(studentUpdateDTO.getIdNumber());
-            student.setPassword(studentUpdateDTO.getPassword());
 
             studentRepository.save(student);
             System.out.println("\nStudent details updated Successfully");
