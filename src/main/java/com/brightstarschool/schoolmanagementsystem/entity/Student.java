@@ -43,6 +43,9 @@ public class Student {
     @Column(name = "reset_token")
     private String resetToken;
 
+    @Column(name = "verification_token")
+    private String verificationToken;
+
     @Column(name = "is_email_verified")
     private boolean isEmailVerified;
 
@@ -65,6 +68,7 @@ public class Student {
                    String password,
                    String accessToken,
                    String resetToken,
+                   String verificationToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
         this.studentId = studentId;
@@ -76,6 +80,7 @@ public class Student {
         this.password = password;
         this.accessToken = accessToken;
         this.resetToken = resetToken;
+        this.verificationToken = verificationToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
     }
@@ -88,6 +93,7 @@ public class Student {
                    String password,
                    String accessToken,
                    String resetToken,
+                   String verificationToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
         this.name = name;
@@ -98,6 +104,7 @@ public class Student {
         this.password = password;
         this.accessToken = accessToken;
         this.resetToken = resetToken;
+        this.verificationToken = verificationToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
         this.enrollments = enrollments;
@@ -176,6 +183,14 @@ public class Student {
         this.resetToken = resetToken;
     }
 
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
     public boolean isEmailVerified() {
         return isEmailVerified;
     }
@@ -206,12 +221,13 @@ public class Student {
                 "studentId=" + studentId +
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
                 ", password='" + password + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", resetToken='" + resetToken + '\'' +
+                ", verificationToken='" + verificationToken + '\'' +
                 ", isEmailVerified=" + isEmailVerified +
                 ", isDeleted=" + isDeleted +
                 ", enrollments=" + enrollments +

@@ -8,6 +8,7 @@ import com.brightstarschool.schoolmanagementsystem.service.interfaces.Authentica
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.RandomStringUtils;
 
 
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             }
 
             String encodedPassword = passwordEncoder.encode(studentSaveDTO.getPassword());
+            String verificationToken = RandomStringUtils.randomAlphanumeric(32);
 
             Student student = new Student(
                     studentSaveDTO.getName(),
@@ -55,14 +57,17 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     encodedPassword,
                     "",
                     "",
+                    verificationToken,
                     false,
                     false
             );
 
             studentRepository.save(student);
 
-            String emailBody = "Dear " + studentSaveDTO.getName() + ", \nWelcome to Bright Star School. We are pleased to have you aboard.";
-            emailsManagement.sendEmail(studentSaveDTO.getEmail(),"Registration Successfull", emailBody);
+            String emailBody = "Dear " + studentSaveDTO.getName() + ",\nWelcome to Bright Star School. We are pleased to have you aboard.\nPlease verify your email by clicking the link below:\n" +
+                    "http://your-domain.com/verify-email?token=" + verificationToken;
+
+            emailsManagement.sendEmail(studentSaveDTO.getEmail(), "Registration Successful", emailBody);
 
             return student.getName();
 
@@ -72,6 +77,19 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             throw new RuntimeException(ex);
         }
 
+    }
+
+    @Override
+    public boolean verifyEmail(String token) {
+        Optional<Student> studentOptional = studentRepository.findByVerificationToken(token);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            student.setEmailVerified(true);
+            student.setVerificationToken(null); // Clear the token once verified
+            studentRepository.save(student);
+            return true;
+        }
+        return false;
     }
 
 }
