@@ -10,4 +10,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long > {
     Optional<Teacher> findByIdNumber(long idNumber);
 
     Optional<Teacher> findByEmail(String email);
+
+    Optional<Teacher> findByVerificationToken(String token);
 }

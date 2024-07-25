@@ -2,9 +2,11 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.dto.TeacherSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationTeacher;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,25 +46,29 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
             }
 
             String encodedPassword = passwordEncoder.encode(teacherSaveDTO.getPassword());
+            String verificationToken = RandomStringUtils.randomAlphanumeric(32);
 
 
             Teacher teacher = new Teacher(
                     teacherSaveDTO.getName(),
                     teacherSaveDTO.getAdress(),
-                    teacherSaveDTO.getEmail(),
                     teacherSaveDTO.getPhoneNumber(),
+                    teacherSaveDTO.getEmail(),
                     teacherSaveDTO.getIdNumber(),
                     encodedPassword,
                     "",
                     "",
+                    verificationToken,
                     false,
                     false
             );
 
             teacherRepository.save(teacher);
 
-            String emailBody = "Dear " + teacherSaveDTO.getName() + ", \nWelcome to Bright Star School. We are pleased to have you aboard.";
-            emailsManagement.sendEmail(teacherSaveDTO.getEmail(),"Registration Successfull", emailBody);
+            String emailBody = "Dear " + teacherSaveDTO.getName() + ",\nWelcome to Bright Star School. We are pleased to have you aboard.\nPlease verify your email by clicking the link below:\n" +
+                    "http://localhost:5555/api/v1/teachers/verify-email?token=" + verificationToken;
+
+            emailsManagement.sendEmail(teacherSaveDTO.getEmail(), "Registration Successful", emailBody);
 
             return teacher.getName();
 
@@ -74,4 +80,15 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
 
     }
 
+    public boolean verifyEmail(String token) {
+        Optional<Teacher> teacherOptional = teacherRepository.findByVerificationToken(token);
+        if (teacherOptional.isPresent()) {
+            Teacher teacher = teacherOptional.get();
+            teacher.setEmailVerified(true);
+            teacher.setVerificationToken(null);
+            teacherRepository.save(teacher);
+            return true;
+        }
+        return false;
+    }
 }

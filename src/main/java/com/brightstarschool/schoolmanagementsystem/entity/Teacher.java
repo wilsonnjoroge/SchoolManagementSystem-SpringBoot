@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "Teachers")
 public class Teacher {
@@ -15,7 +17,7 @@ public class Teacher {
 
     @NotNull
     @Column(name = "teacher_name", length = 45)
-    private String name;;
+    private String name;
 
     @NotNull
     @Column(name = "adress", length = 60)
@@ -24,12 +26,10 @@ public class Teacher {
     @Column(name = "email", length = 65)
     private String email;
 
-    @Setter
     @NotNull
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber", length = 12)
     private long phoneNumber;
 
-    @Getter
     @NotNull
     @Column(name = "idNumber", length = 12)
     private long idNumber;
@@ -38,11 +38,14 @@ public class Teacher {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "access_token")
+    private String accessToken;
+
     @Column(name = "reset_token")
     private String resetToken;
 
-    @Column(name = "access_token")
-    private String accessToken;
+    @Column(name = "verification_token")
+    private String verificationToken;
 
     @Column(name = "is_email_verified")
     private boolean isEmailVerified;
@@ -62,6 +65,7 @@ public class Teacher {
                    long idNumber,
                    String password,
                    String resetToken,
+                   String verificationToken,
                    String accessToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
@@ -73,6 +77,7 @@ public class Teacher {
         this.idNumber = idNumber;
         this.password = password;
         this.resetToken = resetToken;
+        this.verificationToken = verificationToken;
         this.accessToken = accessToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
@@ -80,12 +85,13 @@ public class Teacher {
 
     public Teacher(String name,
                    String adress,
-                   String email,
                    long phoneNumber,
+                   String email,
                    long idNumber,
                    String password,
-                   String resetToken,
                    String accessToken,
+                   String resetToken,
+                   String verificationToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
         this.name = name;
@@ -95,6 +101,7 @@ public class Teacher {
         this.idNumber = idNumber;
         this.password = password;
         this.resetToken = resetToken;
+        this.verificationToken = verificationToken;
         this.accessToken = accessToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
@@ -140,6 +147,10 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
     }
 
+    public long getIdNumber() {
+        return idNumber;
+    }
+
     public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
     }
@@ -158,6 +169,14 @@ public class Teacher {
 
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 
     public String getAccessToken() {
@@ -191,13 +210,15 @@ public class Teacher {
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
                 ", password='" + password + '\'' +
                 ", resetToken='" + resetToken + '\'' +
+                ", verificationToken='" + verificationToken + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", isEmailVerified=" + isEmailVerified +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
+
 }
