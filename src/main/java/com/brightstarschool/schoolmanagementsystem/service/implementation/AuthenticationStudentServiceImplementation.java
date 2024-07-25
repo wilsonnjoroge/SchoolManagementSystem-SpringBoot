@@ -18,6 +18,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private StudentRepository studentRepository;
     private PasswordEncoder  passwordEncoder;
     private EmailsManagement emailsManagement;
+    private TokenGenerator tokenGenerator;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
