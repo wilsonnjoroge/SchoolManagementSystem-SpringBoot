@@ -42,6 +42,7 @@ public class StudentController {
             return "Invalid or expired verification token.";
         }
     }
+
     @GetMapping(path = "/view-all-students")
     public List<StudentDTO> getAllStudents()
     {

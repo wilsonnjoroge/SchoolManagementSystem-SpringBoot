@@ -29,6 +29,16 @@ public class TeacherController {
         return "Name: " + teacherName;
     };
 
+    @GetMapping("/verify-email")
+    public String verifyEmail(@RequestParam("token") String token) {
+        boolean isVerified = authenticationTeacherServiceImpplementation.verifyEmail(token);
+        if (isVerified) {
+            return "Email verified successfully!";
+        } else {
+            return "Invalid or expired verification token.";
+        }
+    }
+
     @GetMapping(path = "/view-all-teachers")
     public List<TeacherDTO> getAllTeachers()
     {
