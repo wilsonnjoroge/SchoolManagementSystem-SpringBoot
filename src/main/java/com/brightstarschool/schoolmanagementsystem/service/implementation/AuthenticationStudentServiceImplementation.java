@@ -1,14 +1,17 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
+import com.brightstarschool.schoolmanagementsystem.Utils.RandomNumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang3.RandomStringUtils;
+
+
 
 
 import java.util.Optional;
@@ -18,7 +21,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private StudentRepository studentRepository;
     private PasswordEncoder  passwordEncoder;
     private EmailsManagement emailsManagement;
-    private TokenGenerator tokenGenerator;
+    private RandomNumberGenerator randomNumberGenerator;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
@@ -66,7 +69,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             studentRepository.save(student);
 
             String emailBody = "Dear " + studentSaveDTO.getName() + ",\nWelcome to Bright Star School. We are pleased to have you aboard.\nPlease verify your email by clicking the link below:\n" +
-                    "http://your-domain.com/verify-email?token=" + verificationToken;
+                    "http://localhost:5555/api/v1/students/verify-email?token=" + verificationToken;
 
             emailsManagement.sendEmail(studentSaveDTO.getEmail(), "Registration Successful", emailBody);
 
@@ -86,7 +89,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
             student.setEmailVerified(true);
-            student.setVerificationToken(null); // Clear the token once verified
+            student.setVerificationToken(null);
             studentRepository.save(student);
             return true;
         }
