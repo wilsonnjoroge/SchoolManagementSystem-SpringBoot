@@ -33,6 +33,15 @@ public class StudentController {
         return "Name: " + studentName;
     };
 
+    @GetMapping("/verify-email")
+    public String verifyEmail(@RequestParam("token") String token) {
+        boolean isVerified = authenticationStudentServiceImplementation.verifyEmail(token);
+        if (isVerified) {
+            return "Email verified successfully!";
+        } else {
+            return "Invalid or expired verification token.";
+        }
+    }
     @GetMapping(path = "/view-all-students")
     public List<StudentDTO> getAllStudents()
     {
