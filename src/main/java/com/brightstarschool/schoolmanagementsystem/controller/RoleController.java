@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "api/v1/roles")
+    // Swagger endpoints
 @Api(value = "Role Management System", description = "Operations pertaining to roles in Role Management System")
 public class RoleController {
     private RoleService roleService;
