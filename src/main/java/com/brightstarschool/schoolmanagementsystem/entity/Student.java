@@ -14,6 +14,9 @@ public class Student {
     @Column(name = "student_id", length = 11)
     private long studentId;
 
+    @Column(name = "admission_number")
+    private String admissionNumber;
+
     @NotNull
     @Column(name = "student_name", length = 45)
     private String name;
@@ -52,7 +55,7 @@ public class Student {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Enrollment> enrollments;
 
 
@@ -60,6 +63,7 @@ public class Student {
     }
 
     public Student(long studentId,
+                   String admissionNumber,
                    String name,
                    String adress,
                    long phoneNumber,
@@ -72,6 +76,7 @@ public class Student {
                    boolean isEmailVerified,
                    boolean isDeleted) {
         this.studentId = studentId;
+        this.admissionNumber = admissionNumber;
         this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
@@ -85,7 +90,8 @@ public class Student {
         this.isDeleted = isDeleted;
     }
 
-    public Student(String name,
+    public Student(String admissionNumber,
+                   String name,
                    String adress,
                    long phoneNumber,
                    String email,
@@ -96,6 +102,7 @@ public class Student {
                    String verificationToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
+        this.admissionNumber = admissionNumber;
         this.name = name;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
@@ -115,8 +122,10 @@ public class Student {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
+    public String getAdmissionNumber(){return admissionNumber;}
+
+    public void setAdmissionNumber(String admissionNumber) {
+        this.admissionNumber = admissionNumber;
     }
 
     public String getName() {
@@ -219,6 +228,7 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
+                "admissionNumber=" + admissionNumber +
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", email='" + email + '\'' +

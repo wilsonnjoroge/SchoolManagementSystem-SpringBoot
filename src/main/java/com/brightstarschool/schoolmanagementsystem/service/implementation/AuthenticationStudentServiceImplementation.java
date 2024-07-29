@@ -1,6 +1,6 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
-import com.brightstarschool.schoolmanagementsystem.Utils.RandomNumberGenerator;
+import com.brightstarschool.schoolmanagementsystem.Utils.NumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
@@ -21,15 +21,17 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private StudentRepository studentRepository;
     private PasswordEncoder  passwordEncoder;
     private EmailsManagement emailsManagement;
-    private RandomNumberGenerator randomNumberGenerator;
+    private NumberGenerator numberGenerator;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
                                                       PasswordEncoder passwordEncoder,
-                                                      EmailsManagement emailsManagement) {
+                                                      EmailsManagement emailsManagement,
+                                                      NumberGenerator numberGenerator) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
+        this.numberGenerator = numberGenerator;
     }
 
     @Override
@@ -52,7 +54,10 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             String encodedPassword = passwordEncoder.encode(studentSaveDTO.getPassword());
             String verificationToken = RandomStringUtils.randomAlphanumeric(32);
 
+            String admissionNumber = numberGenerator.generateSequentialNumber();
+
             Student student = new Student(
+                    admissionNumber,
                     studentSaveDTO.getName(),
                     studentSaveDTO.getAdress(),
                     studentSaveDTO.getPhoneNumber(),
@@ -68,7 +73,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
 
             studentRepository.save(student);
 
-            String emailBody = "Dear " + studentSaveDTO.getName() + ",\nWelcome to Bright Star School. We are pleased to have you aboard.\nPlease verify your email by clicking the link below:\n" +
+            String emailBody = "Dear " + studentSaveDTO.getName() + ", Admission Number: "+ admissionNumber + ",\nWelcome to Bright Star School. We are pleased to have you aboard.\nPlease verify your email by clicking the link below:\n" +
                     "http://localhost:5555/api/v1/students/verify-email?token=" + verificationToken;
 
             emailsManagement.sendEmail(studentSaveDTO.getEmail(), "Registration Successful", emailBody);
