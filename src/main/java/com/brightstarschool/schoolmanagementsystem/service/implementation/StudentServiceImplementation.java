@@ -31,6 +31,7 @@ public class StudentServiceImplementation implements StudentService {
             StudentDTO studentDTO = new StudentDTO
                     (
                             student.getStudentId(),
+                            student.getAdmissionNumber(),
                             student.getName(),
                             student.getAdress(),
                             student.getPhoneNumber(),

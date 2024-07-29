@@ -1,7 +1,7 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
-import com.brightstarschool.schoolmanagementsystem.Utils.RandomNumberGenerator;
+import com.brightstarschool.schoolmanagementsystem.Utils.NumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.Utils.TokenHasher;
 import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.ForgotPasswordResponseDto;
@@ -18,19 +18,19 @@ import java.util.Optional;
 public class ForgotPasswordServiceImplementation {
     private StudentRepository studentRepository;
     private TeacherRepository teacherRepository;
-    private RandomNumberGenerator randomNumberGenerator;
+    private NumberGenerator numberGenerator;
     private TokenHasher tokenHasher;
     private EmailsManagement emailsManagement;
 
     @Autowired
     public ForgotPasswordServiceImplementation(StudentRepository studentRepository,
                                                TeacherRepository teacherRepository,
-                                               RandomNumberGenerator randomNumberGenerator,
+                                               NumberGenerator numberGenerator,
                                                TokenHasher tokenHasher,
                                                EmailsManagement emailsManagement) {
         this.studentRepository = studentRepository;
         this.teacherRepository = teacherRepository;
-        this.randomNumberGenerator = randomNumberGenerator;
+        this.numberGenerator = numberGenerator;
         this.tokenHasher = tokenHasher;
         this.emailsManagement = emailsManagement;
     }
@@ -42,7 +42,7 @@ public class ForgotPasswordServiceImplementation {
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
 
-            String token = randomNumberGenerator.generateToken();
+            String token = numberGenerator.generateRandomNumber();
 
             String hashedToken = tokenHasher.hashToken(token);
             student.setResetToken(hashedToken);
@@ -63,7 +63,7 @@ public class ForgotPasswordServiceImplementation {
         if (teacherOptional.isPresent()) {
             Teacher teacher = teacherOptional.get();
 
-            String token = randomNumberGenerator.generateToken();
+            String token = numberGenerator.generateRandomNumber();
 
             String hashedToken = tokenHasher.hashToken(token);
             teacher.setResetToken(hashedToken);
