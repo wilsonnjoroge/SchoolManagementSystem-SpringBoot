@@ -1,6 +1,5 @@
 package com.brightstarschool.schoolmanagementsystem.controller;
 
-
 import com.brightstarschool.schoolmanagementsystem.dto.RoleDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleUpdateDTO;
@@ -16,10 +15,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "api/v1/roles")
-    // Swagger endpoints
 @Api(value = "Role Management System", description = "Operations pertaining to roles in Role Management System")
 public class RoleController {
-    private RoleService roleService;
+    private final RoleService roleService;
 
     @Autowired
     public RoleController(RoleService roleService) {
@@ -42,8 +40,7 @@ public class RoleController {
 
     @PutMapping(path = "/update-role/{id}")
     @ApiOperation(value = "Update an existing role")
-    public ResponseEntity<String> updateRole(@PathVariable long id, @RequestBody RoleUpdateDTO roleUpdateDTO)
-    {
+    public ResponseEntity<String> updateRole(@PathVariable long id, @RequestBody RoleUpdateDTO roleUpdateDTO) {
         String response = roleService.updateRole(id, roleUpdateDTO);
         return ResponseEntity.ok(response);
     }
