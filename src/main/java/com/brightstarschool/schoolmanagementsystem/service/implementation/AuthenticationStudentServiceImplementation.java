@@ -65,9 +65,11 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     admissionNumber,
                     studentSaveDTO.getName(),
                     studentSaveDTO.getAdress(),
-                    studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getEmail(),
+                    studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getIdNumber(),
+                    studentSaveDTO.getTotalFeeBilled(),
+                    studentSaveDTO.getTotalPaidFee(),
                     encodedPassword,
                     "",
                     "",
@@ -75,6 +77,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     false,
                     false
             );
+
 
             studentRepository.save(student);
 

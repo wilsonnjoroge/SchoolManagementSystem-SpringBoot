@@ -11,22 +11,13 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 public class StudentUpdateDTO {
     private long studentId;
-
-    @NotNull
     private String name;
-
-    @NotNull
     private String adress;
-
-    @NotNull
     private long phoneNumber;
-
-    @NotNull
     private String email;
-
-    @NotNull
     private long idNumber;
-
-    @NonNull
     private String password;
+    private long totalFeeBilled;
+    private long totalPaidFee;
+    private long feeBalance;
 }
