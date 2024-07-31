@@ -1,6 +1,9 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.aspectj.lang.annotation.RequiredTypes;
 
@@ -37,6 +40,18 @@ public class Student {
     private long idNumber;
 
     @NotNull
+    @Column(name = "total_fees_billed")
+    private long totalFeeBilled;
+
+    @NotNull
+    @Column(name = "paid_fees")
+    private long totalPaidFee;
+
+    @NotNull
+    @Column(name = "fee_balance")
+    private long feeBalance;
+
+    @NotNull
     @Column(name = "password")
     private String password;
 
@@ -58,7 +73,6 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Enrollment> enrollments;
 
-
     public Student() {
     }
 
@@ -66,48 +80,28 @@ public class Student {
                    String admissionNumber,
                    String name,
                    String adress,
-                   long phoneNumber,
                    String email,
+                   long phoneNumber,
                    long idNumber,
+                   long totalFeeBilled,
+                   long totalPaidFee,
                    String password,
                    String accessToken,
                    String resetToken,
                    String verificationToken,
                    boolean isEmailVerified,
-                   boolean isDeleted) {
+                   boolean isDeleted,
+                   Set<Enrollment> enrollments) {
         this.studentId = studentId;
         this.admissionNumber = admissionNumber;
         this.name = name;
         this.adress = adress;
-        this.phoneNumber = phoneNumber;
         this.email = email;
-        this.idNumber = idNumber;
-        this.password = password;
-        this.accessToken = accessToken;
-        this.resetToken = resetToken;
-        this.verificationToken = verificationToken;
-        this.isEmailVerified = isEmailVerified;
-        this.isDeleted = isDeleted;
-    }
-
-    public Student(String admissionNumber,
-                   String name,
-                   String adress,
-                   long phoneNumber,
-                   String email,
-                   long idNumber,
-                   String password,
-                   String accessToken,
-                   String resetToken,
-                   String verificationToken,
-                   boolean isEmailVerified,
-                   boolean isDeleted) {
-        this.admissionNumber = admissionNumber;
-        this.name = name;
-        this.adress = adress;
         this.phoneNumber = phoneNumber;
-        this.email = email;
         this.idNumber = idNumber;
+        this.totalFeeBilled = totalFeeBilled;
+        this.totalPaidFee = totalPaidFee;
+        this.feeBalance  = totalFeeBilled - totalPaidFee;
         this.password = password;
         this.accessToken = accessToken;
         this.resetToken = resetToken;
@@ -117,12 +111,48 @@ public class Student {
         this.enrollments = enrollments;
     }
 
+    public Student(String admissionNumber,
+                   String name,
+                   String adress,
+                   String email,
+                   long phoneNumber,
+                   long idNumber,
+                   long totalFeeBilled,
+                   long totalPaidFee,
+                   String password,
+                   String accessToken,
+                   String resetToken,
+                   String verificationToken,
+                   boolean isEmailVerified,
+                   boolean isDeleted) {
+        this.admissionNumber = admissionNumber;
+        this.name = name;
+        this.adress = adress;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.idNumber = idNumber;
+        this.totalFeeBilled = totalFeeBilled;
+        this.totalPaidFee = totalPaidFee;
+        this.feeBalance  = totalFeeBilled - totalPaidFee;
+        this.password = password;
+        this.accessToken = accessToken;
+        this.resetToken = resetToken;
+        this.verificationToken = verificationToken;
+        this.isEmailVerified = isEmailVerified;
+        this.isDeleted = isDeleted;
+    }
 
     public long getStudentId() {
         return studentId;
     }
 
-    public String getAdmissionNumber(){return admissionNumber;}
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getAdmissionNumber() {
+        return admissionNumber;
+    }
 
     public void setAdmissionNumber(String admissionNumber) {
         this.admissionNumber = admissionNumber;
@@ -144,14 +174,6 @@ public class Student {
         this.adress = adress;
     }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -160,12 +182,44 @@ public class Student {
         this.email = email;
     }
 
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public long getIdNumber() {
         return idNumber;
     }
 
     public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public long getTotalFeeBilled() {
+        return totalFeeBilled;
+    }
+
+    public void setTotalFeeBilled(long totalFeeBilled) {
+        this.totalFeeBilled = totalFeeBilled;
+    }
+
+    public long getTotalPaidFee() {
+        return totalPaidFee;
+    }
+
+    public void setTotalPaidFee(long totalPaidFee) {
+        this.totalPaidFee = totalPaidFee;
+    }
+
+    public long getFeeBalance() {
+        return feeBalance;
+    }
+
+    public void setFeeBalance(long feeBalance) {
+        this.feeBalance = feeBalance;
     }
 
     public String getPassword() {
@@ -228,12 +282,15 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
-                "admissionNumber=" + admissionNumber +
+                ", admissionNumber='" + admissionNumber + '\'' +
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
+                ", totalFeeBilled=" + totalFeeBilled +
+                ", totalPaidFee=" + totalPaidFee +
+                ", feeBalance=" + feeBalance +
                 ", password='" + password + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", resetToken='" + resetToken + '\'' +
@@ -243,4 +300,6 @@ public class Student {
                 ", enrollments=" + enrollments +
                 '}';
     }
+
+
 }
