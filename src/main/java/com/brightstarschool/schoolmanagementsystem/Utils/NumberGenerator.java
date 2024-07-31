@@ -7,8 +7,6 @@ import java.util.Random;
 @Configuration
 public class NumberGenerator {
 
-    private int currentSequenceNumber = 0;
-
     // Method to generate a random token
     public String generateRandomNumber() {
         Random random = new Random();
@@ -17,8 +15,7 @@ public class NumberGenerator {
     }
 
     // Method to generate a sequential 4-digit number with prefix BS
-    public synchronized String generateSequentialNumber() {
-        currentSequenceNumber++;
+    public String generateSequentialNumber(int currentSequenceNumber) {
         return String.format("BS%04d", currentSequenceNumber);
     }
 }
