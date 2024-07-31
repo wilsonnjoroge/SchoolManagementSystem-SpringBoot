@@ -1,25 +1,50 @@
 package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Entity
 @Table(name = "admission_number_tracker")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AdmissionNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "admission_number_id", length = 11)
+    @Column(name = "admission_number_id")
     private long admissionNumberId;
 
     @Nullable
-    @Column(name = "recent_admission_number", length = 45)
+    @Column(name = "recent_admission_number", unique = true)
     private String recentAdmissionNumber;
 
+    // Constructors, getters, setters
+
+    public AdmissionNumber() {}
+
+    public AdmissionNumber(@Nullable String recentAdmissionNumber) {
+        this.recentAdmissionNumber = recentAdmissionNumber;
+    }
+
+    public long getAdmissionNumberId() {
+        return admissionNumberId;
+    }
+
+    public void setAdmissionNumberId(long admissionNumberId) {
+        this.admissionNumberId = admissionNumberId;
+    }
+
+    @Nullable
+    public String getRecentAdmissionNumber() {
+        return recentAdmissionNumber;
+    }
+
+    public void setRecentAdmissionNumber(@Nullable String recentAdmissionNumber) {
+        this.recentAdmissionNumber = recentAdmissionNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "AdmissionNumber{" +
+                "admissionNumberId=" + admissionNumberId +
+                ", recentAdmissionNumber='" + recentAdmissionNumber + '\'' +
+                '}';
+    }
 }

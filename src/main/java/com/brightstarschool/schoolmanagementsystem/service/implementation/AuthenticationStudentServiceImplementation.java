@@ -3,7 +3,9 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.Utils.NumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
+import com.brightstarschool.schoolmanagementsystem.entity.AdmissionNumber;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
+import com.brightstarschool.schoolmanagementsystem.repository.AdmissionTracker;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,16 +24,19 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private PasswordEncoder  passwordEncoder;
     private EmailsManagement emailsManagement;
     private NumberGenerator numberGenerator;
+    private AdmissionTracker admissionTracker;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
                                                       PasswordEncoder passwordEncoder,
                                                       EmailsManagement emailsManagement,
-                                                      NumberGenerator numberGenerator) {
+                                                      NumberGenerator numberGenerator,
+                                                      AdmissionTracker admissionTracker) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
         this.numberGenerator = numberGenerator;
+        this.admissionTracker = admissionTracker;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             String encodedPassword = passwordEncoder.encode(studentSaveDTO.getPassword());
             String verificationToken = RandomStringUtils.randomAlphanumeric(32);
 
-            String admissionNumber = numberGenerator.generateSequentialNumber();
+            String admissionNumber = generateUniqueAdmissionNumber();
 
             Student student = new Student(
                     admissionNumber,
@@ -87,6 +92,23 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
         }
 
     }
+
+
+    private String generateUniqueAdmissionNumber() {
+        Optional<AdmissionNumber> trackerOptional = admissionTracker.findTopByOrderByAdmissionNumberIdDesc();
+        String lastNumberStr = trackerOptional.map(AdmissionNumber::getRecentAdmissionNumber).orElse("BS0000");
+        int lastNumber = Integer.parseInt(lastNumberStr.replace("BS", ""));
+        int nextNumber = lastNumber + 1;
+
+        String nextAdmissionNumber = numberGenerator.generateSequentialNumber(nextNumber);
+
+        AdmissionNumber tracker = trackerOptional.orElse(new AdmissionNumber());
+        tracker.setRecentAdmissionNumber(nextAdmissionNumber);
+        admissionTracker.save(tracker);
+
+        return nextAdmissionNumber;
+    }
+
 
     @Override
     public boolean verifyEmail(String token) {
