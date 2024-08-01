@@ -1,11 +1,15 @@
 package com.brightstarschool.schoolmanagementsystem.controller;
 
+import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.RoleSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.FeePerTermService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -23,5 +27,12 @@ public class FeePerTermController {
         String response = feePerTermService.addFeePerTerm(feesPerTermSaveDTO);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping(path = "/view-all-fees-per-term")
+    public List<FeesPerTermDTO> getAllFeesPerTerm()
+    {
+        List<FeesPerTermDTO> allFeesPerTerm = feePerTermService.getAllFeesPerTerm();
+        return allFeesPerTerm;
+    };
 
 }
