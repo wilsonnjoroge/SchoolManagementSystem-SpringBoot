@@ -98,6 +98,14 @@ public class FeePerTermServiceImplementation implements FeePerTermService {
 
     @Override
     public boolean deleteFeePerTerm(long id) {
-        return false;
+
+        if(feePerTermRepository.existsById(id)) {
+            feePerTermRepository.deleteById(id);
+
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

@@ -34,12 +34,22 @@ public class FeePerTermController {
     };
 
 
-    @PutMapping(path = "/update-fee-per-term")
-    public ResponseEntity<String> updateFeesPerTerm( long id, @RequestBody FeesPerTermUpdateDTO feesPerTermUpdateDTO)
+
+    @PutMapping(path = "/update-fee-per-term{id}")
+    public ResponseEntity<String> updateFeesPerTerm(@PathVariable("id") long id, @RequestBody FeesPerTermUpdateDTO feesPerTermUpdateDTO)
     {
         String response = feePerTermService.updateFeePerTerm(id, feesPerTermUpdateDTO);
 
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping(path = "/delete-fee-per-term/{id}")
+    public String deleteFeePerTerm(@PathVariable("id") long id) {
+        boolean deleteFeePerTerm = feePerTermService.deleteFeePerTerm(id);
+        if (deleteFeePerTerm) {
+            return "Fee per term deleted successfully";
+        } else {
+            return "Fee per term ID not found";
+        }
+    }
 }
