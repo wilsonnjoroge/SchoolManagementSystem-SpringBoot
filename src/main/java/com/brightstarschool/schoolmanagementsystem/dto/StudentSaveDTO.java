@@ -1,5 +1,6 @@
 package com.brightstarschool.schoolmanagementsystem.dto;
 
+import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,11 @@ public class StudentSaveDTO {
     private String name;
     private String adress;
     private long phoneNumber;
+    private long currentTermId;
     private String email;
     private long idNumber;
     private String password;
-    private long totalFeeBilled;
     private long totalPaidFee;
-    private long feeBalance;
     private String accessToken;
     private String resetToken;
     private boolean isEmailVerified;
