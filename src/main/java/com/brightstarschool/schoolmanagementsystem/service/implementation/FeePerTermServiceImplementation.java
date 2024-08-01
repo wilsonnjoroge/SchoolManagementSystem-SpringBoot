@@ -3,12 +3,15 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
+import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.FeePerTermRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.FeePerTermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,7 +41,23 @@ public class FeePerTermServiceImplementation implements FeePerTermService {
 
     @Override
     public List<FeesPerTermDTO> getAllFeesPerTerm() {
-        return null;
+        List<FeesPerTerm> getFees = feePerTermRepository.findAll();
+        List<FeesPerTermDTO> feeDTOList = new ArrayList<>();
+
+        for(FeesPerTerm fees : getFees)
+        {
+            FeesPerTermDTO feesPerTermDTO = new FeesPerTermDTO
+                    (
+                            fees.getId(),
+                            fees.getTerm(),
+                            fees.getTermStartDate(),
+                            fees.getTermEndDate(),
+                            fees.getFeeCharged()
+                    );
+            feeDTOList.add(feesPerTermDTO);
+        }
+
+        return feeDTOList;
     }
 
     @Override
