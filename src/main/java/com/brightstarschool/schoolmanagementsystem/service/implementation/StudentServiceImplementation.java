@@ -37,6 +37,7 @@ public class StudentServiceImplementation implements StudentService {
                             student.getPhoneNumber(),
                             student.getEmail(),
                             student.getIdNumber(),
+                            student.getCurrentTerm(),
                             student.getTotalFeeBilled(),
                             student.getTotalPaidFee(),
                             student.getFeeBalance(),

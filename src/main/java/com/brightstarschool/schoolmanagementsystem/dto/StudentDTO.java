@@ -1,5 +1,6 @@
 package com.brightstarschool.schoolmanagementsystem.dto;
 
+import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class StudentDTO {
     private long phoneNumber;
     private String email;
     private long idNumber;
+    private FeesPerTerm currentTerm;
     private long totalFeeBilled;
     private long totalPaidFee;
     private long feeBalance;

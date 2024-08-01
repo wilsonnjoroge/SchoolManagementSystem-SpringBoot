@@ -39,6 +39,10 @@ public class Student {
     @Column(name = "idNumber", length = 12)
     private long idNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "current_term_id")
+    private FeesPerTerm currentTerm;
+
     @NotNull
     @Column(name = "total_fees_billed")
     private long totalFeeBilled;
@@ -73,6 +77,7 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Enrollment> enrollments;
 
+
     public Student() {
     }
 
@@ -83,6 +88,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   FeesPerTerm currentTerm,
                    long totalFeeBilled,
                    long totalPaidFee,
                    String password,
@@ -99,6 +105,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
         this.totalPaidFee = totalPaidFee;
         this.feeBalance  = totalFeeBilled - totalPaidFee;
@@ -117,6 +124,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   FeesPerTerm currentTerm,
                    long totalFeeBilled,
                    long totalPaidFee,
                    String password,
@@ -131,6 +139,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
         this.totalPaidFee = totalPaidFee;
         this.feeBalance  = totalFeeBilled - totalPaidFee;
@@ -278,6 +287,15 @@ public class Student {
         this.enrollments = enrollments;
     }
 
+    public FeesPerTerm getCurrentTerm() {
+        return currentTerm;
+    }
+
+    public void setCurrentTerm(FeesPerTerm currentTerm) {
+        this.currentTerm = currentTerm;
+    }
+
+
     @Override
     public String toString() {
         return "Student{" +
@@ -298,8 +316,7 @@ public class Student {
                 ", isEmailVerified=" + isEmailVerified +
                 ", isDeleted=" + isDeleted +
                 ", enrollments=" + enrollments +
+                ", currentTerm=" + currentTerm +
                 '}';
     }
-
-
 }
