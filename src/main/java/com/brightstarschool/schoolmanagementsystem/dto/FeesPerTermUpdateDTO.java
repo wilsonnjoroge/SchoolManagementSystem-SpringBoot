@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeesPerTermUpdateDTO {
-    private long term;
+    private double term;
+    private LocalDate termStartDate;
+    private LocalDate termEndDate;
     private long feeCharged;
 }
