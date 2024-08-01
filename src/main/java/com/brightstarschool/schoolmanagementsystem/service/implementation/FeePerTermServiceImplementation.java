@@ -62,7 +62,38 @@ public class FeePerTermServiceImplementation implements FeePerTermService {
 
     @Override
     public String updateFeePerTerm(long id, FeesPerTermUpdateDTO feesPerTermUpdateDTO) {
-        return null;
+
+        if(feePerTermRepository.existsById(id))
+        {
+            FeesPerTerm feesPerTerm = feePerTermRepository.getById(id);
+
+            if(feesPerTermUpdateDTO.getTerm() != 0)
+            {
+                feesPerTerm.setTerm(feesPerTermUpdateDTO.getTerm());
+            }
+
+            if(feesPerTermUpdateDTO.getTermStartDate() != null)
+            {
+                feesPerTerm.setTermStartDate(feesPerTermUpdateDTO.getTermStartDate());
+            }
+
+            if(feesPerTermUpdateDTO.getTermEndDate() != null)
+            {
+                feesPerTerm.setTermEndDate(feesPerTermUpdateDTO.getTermEndDate());
+            }
+
+            if(feesPerTermUpdateDTO.getFeeCharged() != 0)
+            {
+                feesPerTerm.setFeeCharged(feesPerTermUpdateDTO.getFeeCharged());
+            }
+
+            feePerTermRepository.save(feesPerTerm);
+
+            return "Fees perTerm updated Successfully";
+        } else {
+            return "Fees perTerm ID not Found";
+        }
+
     }
 
     @Override
