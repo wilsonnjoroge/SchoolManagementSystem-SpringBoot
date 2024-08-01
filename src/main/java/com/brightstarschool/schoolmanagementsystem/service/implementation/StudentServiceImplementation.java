@@ -3,7 +3,9 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
+import com.brightstarschool.schoolmanagementsystem.repository.FeePerTermRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImplementation implements StudentService {
     private StudentRepository studentRepository;
+    private FeePerTermRepository feePerTermRepository;
 
     @Autowired
-    public StudentServiceImplementation(StudentRepository studentRepository) {
+    public StudentServiceImplementation(StudentRepository studentRepository,
+                                        FeePerTermRepository feePerTermRepository) {
         this.studentRepository = studentRepository;
+        this.feePerTermRepository = feePerTermRepository;
     }
 
     @Override
@@ -52,6 +58,7 @@ public class StudentServiceImplementation implements StudentService {
         return studentDTOList;
     }
 
+
     @Override
     public String updateStudent(long id, StudentUpdateDTO studentUpdateDTO) {
         if (studentRepository.existsById(id)) {
@@ -73,11 +80,29 @@ public class StudentServiceImplementation implements StudentService {
                 student.setIdNumber(studentUpdateDTO.getIdNumber());
             }
 
+            // check if the studentUpdateDTO.getCurrentTermId() is not zero and not the current term already assigned to the student
+            if (studentUpdateDTO.getCurrentTermId() != 0 && studentUpdateDTO.getCurrentTermId() != student.getCurrentTerm().getId()) {
+                Optional<FeesPerTerm> currentTermOptional = feePerTermRepository.findById(studentUpdateDTO.getCurrentTermId());
+                if (currentTermOptional.isPresent()) {
+                    FeesPerTerm currentTerm = currentTermOptional.get();
+                    student.setCurrentTerm(currentTerm);
+
+                    // Update the fee balance
+                    long newFeeBilled = student.getFeeBalance() + currentTerm.getFeeCharged();
+                    student.setTotalFeeBilled(newFeeBilled);
+                    student.setFeeBalance(newFeeBilled - student.getTotalPaidFee());
+                } else {
+                    System.out.println("\nTerm ID not Found");
+                    return "Term ID not Found";
+                }
+            }
+
             studentRepository.save(student);
-            System.out.println("\nStudent details updated Successfully");
+
             return "Student details updated Successfully";
+
         } else {
-            System.out.println("\nStudent ID not Found");
+
             return "Student ID not Found";
         }
     }
