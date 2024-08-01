@@ -50,15 +50,27 @@ public class TeacherServiceImplementation implements TeacherService {
     public String updateTeacher(long id, TeacherUpdateDTO teacherUpdateDTO) {
         if (teacherRepository.existsById(id)) {
             Teacher teacher = teacherRepository.getById(id);
-            teacher.setName(teacherUpdateDTO.getTeacherName());
-            teacher.setAdress(teacherUpdateDTO.getAdress());
-            teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
-            teacher.setEmail(teacherUpdateDTO.getEmail());
-            teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
+
+            if (teacherUpdateDTO.getTeacherName() != null) {
+                teacher.setName(teacherUpdateDTO.getTeacherName());
+            }
+            if (teacherUpdateDTO.getAdress() != null) {
+                teacher.setAdress(teacherUpdateDTO.getAdress());
+            }
+            if (teacherUpdateDTO.getPhoneNumber() != 0) {
+                teacher.setPhoneNumber(teacherUpdateDTO.getPhoneNumber());
+            }
+            if (teacherUpdateDTO.getEmail() != null) {
+                teacher.setEmail(teacherUpdateDTO.getEmail());
+            }
+            if (teacherUpdateDTO.getIdNumber() != 0) {
+                teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
+            }
 
             teacherRepository.save(teacher);
-            System.out.println("\nTeacher details updated Successfully");
+
             return "Teacher details updated Successfully";
+
         } else {
             System.out.println("\nTeacher ID not Found");
             return "Teacher ID not Found";
