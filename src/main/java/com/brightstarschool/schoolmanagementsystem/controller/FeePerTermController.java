@@ -2,6 +2,7 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.FeesPerTermUpdateDTO;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.FeePerTermService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,14 @@ public class FeePerTermController {
         List<FeesPerTermDTO> allFeesPerTerm = feePerTermService.getAllFeesPerTerm();
         return allFeesPerTerm;
     };
+
+
+    @PutMapping(path = "/update-fee-per-term")
+    public ResponseEntity<String> updateFeesPerTerm( long id, @RequestBody FeesPerTermUpdateDTO feesPerTermUpdateDTO)
+    {
+        String response = feePerTermService.updateFeePerTerm(id, feesPerTermUpdateDTO);
+
+        return ResponseEntity.ok(response);
+    }
 
 }

@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeesPerTermUpdateDTO {
-    private double term;
+    private double term = 0;
     private LocalDate termStartDate;
     private LocalDate termEndDate;
-    private long feeCharged;
+    private long feeCharged = 0;
 }
