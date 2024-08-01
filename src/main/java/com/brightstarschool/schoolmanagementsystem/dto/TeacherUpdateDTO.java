@@ -11,8 +11,8 @@ public class TeacherUpdateDTO {
     private long teacherId;
     private String teacherName;
     private String adress;
-    private long phoneNumber;
+    private long phoneNumber = 0;
     private String email;
-    private long idNumber;
+    private long idNumber = 0;
     private String password;
 }

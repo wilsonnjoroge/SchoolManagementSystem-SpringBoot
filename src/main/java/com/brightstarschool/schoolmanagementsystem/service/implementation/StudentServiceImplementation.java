@@ -55,11 +55,22 @@ public class StudentServiceImplementation implements StudentService {
     public String updateStudent(long id, StudentUpdateDTO studentUpdateDTO) {
         if (studentRepository.existsById(id)) {
             Student student = studentRepository.getById(id);
-            student.setName(studentUpdateDTO.getName());
-            student.setAdress(studentUpdateDTO.getAdress());
-            student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
-            student.setEmail(studentUpdateDTO.getEmail());
-            student.setIdNumber(studentUpdateDTO.getIdNumber());
+
+            if (studentUpdateDTO.getName() != null) {
+                student.setName(studentUpdateDTO.getName());
+            }
+            if (studentUpdateDTO.getAdress() != null) {
+                student.setAdress(studentUpdateDTO.getAdress());
+            }
+            if (studentUpdateDTO.getPhoneNumber() != 0) {
+                student.setPhoneNumber(studentUpdateDTO.getPhoneNumber());
+            }
+            if (studentUpdateDTO.getEmail() != null) {
+                student.setEmail(studentUpdateDTO.getEmail());
+            }
+            if (studentUpdateDTO.getIdNumber() != 0) {
+                student.setIdNumber(studentUpdateDTO.getIdNumber());
+            }
 
             studentRepository.save(student);
             System.out.println("\nStudent details updated Successfully");
@@ -69,6 +80,8 @@ public class StudentServiceImplementation implements StudentService {
             return "Student ID not Found";
         }
     }
+
+
 
     @Override
     public boolean deleteStudent(long id) {
