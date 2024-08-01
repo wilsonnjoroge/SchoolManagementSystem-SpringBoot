@@ -68,7 +68,6 @@ public class TeacherServiceImplementation implements TeacherService {
             }
 
             teacherRepository.save(teacher);
-
             return "Teacher details updated Successfully";
 
         } else {
