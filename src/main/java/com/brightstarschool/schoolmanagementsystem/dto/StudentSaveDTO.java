@@ -13,6 +13,7 @@ public class StudentSaveDTO {
     private String name;
     private String adress;
     private long phoneNumber;
+    private long dormitoryId;
     private long currentTermId;
     private String email;
     private long idNumber;
