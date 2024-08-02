@@ -4,9 +4,11 @@ import com.brightstarschool.schoolmanagementsystem.Utils.NumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.entity.AdmissionNumber;
+import com.brightstarschool.schoolmanagementsystem.entity.Dormitory;
 import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.repository.AdmissionTracker;
+import com.brightstarschool.schoolmanagementsystem.repository.DormitoryRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.FeePerTermRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
@@ -28,6 +30,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private NumberGenerator numberGenerator;
     private AdmissionTracker admissionTracker;
     private FeePerTermRepository feePerTermRepository;
+    private DormitoryRepository dormitoryRepository;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
@@ -35,13 +38,15 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                                                       EmailsManagement emailsManagement,
                                                       NumberGenerator numberGenerator,
                                                       AdmissionTracker admissionTracker,
-                                                      FeePerTermRepository feePerTermRepository) {
+                                                      FeePerTermRepository feePerTermRepository,
+                                                      DormitoryRepository dormitoryRepository) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
         this.numberGenerator = numberGenerator;
         this.admissionTracker = admissionTracker;
         this.feePerTermRepository = feePerTermRepository;
+        this.dormitoryRepository = dormitoryRepository;
     }
 
     @Override
@@ -74,6 +79,14 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             FeesPerTerm currentTerm = currentTermOptional.get();
             long totalFeeBilled = currentTerm.getFeeCharged();
 
+            // Fetch Dormitry by ID
+            Optional<Dormitory> currentDormitoryOptional = dormitoryRepository.findById(studentSaveDTO.getDormitoryId());
+            if(currentDormitoryOptional.isEmpty())
+            {
+                return "Current dormitory with ID " + studentSaveDTO.getDormitoryId() + " does not exist!";
+            }
+            Dormitory currentDormitory = currentDormitoryOptional.get();
+
             Student student = new Student(
                     admissionNumber,
                     studentSaveDTO.getName(),
@@ -81,6 +94,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     studentSaveDTO.getEmail(),
                     studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getIdNumber(),
+                    currentDormitory,
                     currentTerm,
                     totalFeeBilled,
                     studentSaveDTO.getTotalPaidFee(),

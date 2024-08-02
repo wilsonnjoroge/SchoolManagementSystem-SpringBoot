@@ -40,6 +40,10 @@ public class Student {
     private long idNumber;
 
     @ManyToOne
+    @JoinColumn(name = "dormitory_id")
+    private Dormitory dormitory;
+
+    @ManyToOne
     @JoinColumn(name = "current_term_id")
     private FeesPerTerm currentTerm;
 
@@ -88,6 +92,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   Dormitory dormitory,
                    FeesPerTerm currentTerm,
                    long totalFeeBilled,
                    long totalPaidFee,
@@ -105,6 +110,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.dormitory = dormitory;
         this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
         this.totalPaidFee = totalPaidFee;
@@ -124,6 +130,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   Dormitory dormitory,
                    FeesPerTerm currentTerm,
                    long totalFeeBilled,
                    long totalPaidFee,
@@ -139,6 +146,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.dormitory = dormitory;
         this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
         this.totalPaidFee = totalPaidFee;
@@ -205,6 +213,14 @@ public class Student {
 
     public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public Dormitory getDormitory() {
+        return dormitory;
+    }
+
+    public void setDormitory(Dormitory dormitory) {
+        this.dormitory = dormitory;
     }
 
     public long getTotalFeeBilled() {
