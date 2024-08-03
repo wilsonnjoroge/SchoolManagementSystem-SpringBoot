@@ -2,6 +2,7 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.SubjectDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.SubjectSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.SubjectUpdateDTO;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.SubjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,13 @@ public class SubjectController {
         List<SubjectDTO> subjects = subjectService.getAllSubjects();
 
         return ResponseEntity.ok(subjects);
+    }
+
+    @PutMapping(path = "/update-subject/{id}")
+    public ResponseEntity<String> updateSubject (@PathVariable("id") long id, @RequestBody SubjectUpdateDTO subjectUpdateDTO)
+    {
+        String response = subjectService.updateSubject(id, subjectUpdateDTO);
+
+        return ResponseEntity.ok(response);
     }
 }
