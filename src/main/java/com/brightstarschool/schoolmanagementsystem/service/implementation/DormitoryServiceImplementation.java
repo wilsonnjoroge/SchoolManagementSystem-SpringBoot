@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DormitoryServiceImplementation implements DormitoryService {
@@ -24,6 +25,19 @@ public class DormitoryServiceImplementation implements DormitoryService {
 
     @Override
     public String addDormitory(DormitorySaveDTO dormitorySaveDTO) {
+
+        Optional<Dormitory> dormCodeExists = dormitoryRepository.findByDormCode(dormitorySaveDTO.getDormCode());
+        Optional<Dormitory> dormNameExists = dormitoryRepository.findByDormName(dormitorySaveDTO.getDormName());
+
+        if(dormCodeExists.isPresent())
+        {
+            return "Dorm with that code already exists";
+        }
+
+        if(dormNameExists.isPresent())
+        {
+            return "Dorm with that Name already exists";
+        }
         Dormitory dormitory = new Dormitory
                 (
                         dormitorySaveDTO.getDormCode(),
@@ -36,10 +50,10 @@ public class DormitoryServiceImplementation implements DormitoryService {
 
     @Override
     public List<DormitoryDTO> getAllDormitories() {
-        List<Dormitory> getDomitories = dormitoryRepository.findAll();
+        List<Dormitory> getDormitories = dormitoryRepository.findAll();
         List<DormitoryDTO> dormitoryDTOList = new ArrayList<>();
 
-        for(Dormitory dormitory : getDomitories)
+        for(Dormitory dormitory : getDormitories)
         {
             DormitoryDTO dormitoryDTO = new DormitoryDTO
                     (

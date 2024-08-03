@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentSaveDTO {
-    private String admissionNumber;
     private String name;
     private String adress;
     private long phoneNumber;
