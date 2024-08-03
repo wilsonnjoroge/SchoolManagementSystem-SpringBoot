@@ -70,11 +70,37 @@ public class SubjectServiceImplementation implements SubjectService {
 
     @Override
     public String updateSubject(long id, SubjectUpdateDTO subjectUpdateDTO) {
-        return null;
+
+        if(subjectRepository.existsById(id))
+        {
+            Subject subject = subjectRepository.getById(id);
+
+            if(subjectUpdateDTO.getSubjectCode() != 0)
+            {
+                subject.setSubjectCode(subjectUpdateDTO.getSubjectCode());
+            }
+
+            if(subjectUpdateDTO.getSubjectName() != null)
+            {
+                subject.setSubjectName(subjectUpdateDTO.getSubjectName());
+            }
+
+            subjectRepository.save(subject);
+            return "Subject Details Updated Successfully";
+
+        } else {
+            return "Subject with that ID not found";
+        }
     }
 
     @Override
     public boolean deleteSubject(long id) {
-        return false;
+        if(subjectRepository.existsById(id))
+        {
+            subjectRepository.deleteById(id);
+            return true;
+        } else {
+            return  false;
+        }
     }
 }
