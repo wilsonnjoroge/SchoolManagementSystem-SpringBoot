@@ -43,4 +43,14 @@ public class SubjectController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/delete-subject/{id}")
+    public String deleteSubject(@PathVariable("id") long id) {
+        boolean deleteSubject = subjectService.deleteSubject(id);
+        if (deleteSubject) {
+            return "Subject deleted successfully";
+        } else {
+            return "Subject ID not found";
+        }
+    }
 }

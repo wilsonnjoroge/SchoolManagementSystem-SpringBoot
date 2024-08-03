@@ -95,6 +95,12 @@ public class SubjectServiceImplementation implements SubjectService {
 
     @Override
     public boolean deleteSubject(long id) {
-        return false;
+        if(subjectRepository.existsById(id))
+        {
+            subjectRepository.deleteById(id);
+            return true;
+        } else {
+            return  false;
+        }
     }
 }
