@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,9 +15,6 @@ public class TeacherSaveDTO {
     private long phoneNumber;
     private String email;
     private long idNumber;
+    private long subjectIds;
     private String password;
-    private String accessToken;
-    private String resetToken;
-    private boolean isEmailVerified;
-    private boolean isDeleted;
 }

@@ -2,6 +2,8 @@ package com.brightstarschool.schoolmanagementsystem.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "subjects")
 public class Subject {
@@ -16,6 +18,12 @@ public class Subject {
     @Column(name = "subject_name")
     public String subjectName;
 
+    /*
+        //Relationship with Teachers model
+        @ManyToMany(mappedBy = "subjects")
+        private Set<Teacher> teachers;
+
+        */
 
     public Subject() {
     }
@@ -58,13 +66,24 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
+    /*
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
+    }
+    */
+
+
     @Override
     public String toString() {
         return "Subject{" +
                 "subjectId=" + subjectId +
                 ", subjectCode=" + subjectCode +
                 ", subjectName='" + subjectName + '\'' +
+                // ", teachers=" + teachers +
                 '}';
     }
-
 }
