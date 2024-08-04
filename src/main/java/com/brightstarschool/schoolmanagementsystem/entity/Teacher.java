@@ -3,6 +3,7 @@ package com.brightstarschool.schoolmanagementsystem.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,11 @@ public class Teacher {
     @NotNull
     @Column(name = "idNumber", length = 12)
     private long idNumber;
+
+    // Relationship with Subjects
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subjects;
 
     @NotNull
     @Column(name = "password")
@@ -61,10 +67,11 @@ public class Teacher {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   Subject subjects,
                    String password,
+                   String accessToken,
                    String resetToken,
                    String verificationToken,
-                   String accessToken,
                    boolean isEmailVerified,
                    boolean isDeleted) {
         this.teacherId = teacherId;
@@ -73,19 +80,21 @@ public class Teacher {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.subjects = subjects;
         this.password = password;
+        this.accessToken = accessToken;
         this.resetToken = resetToken;
         this.verificationToken = verificationToken;
-        this.accessToken = accessToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
     }
 
     public Teacher(String name,
                    String adress,
-                   long phoneNumber,
                    String email,
+                   long phoneNumber,
                    long idNumber,
+                   Subject subjects,
                    String password,
                    String accessToken,
                    String resetToken,
@@ -97,10 +106,11 @@ public class Teacher {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.subjects = subjects;
         this.password = password;
+        this.accessToken = accessToken;
         this.resetToken = resetToken;
         this.verificationToken = verificationToken;
-        this.accessToken = accessToken;
         this.isEmailVerified = isEmailVerified;
         this.isDeleted = isDeleted;
     }
@@ -161,6 +171,14 @@ public class Teacher {
         this.password = password;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     public String getResetToken() {
         return resetToken;
     }
@@ -175,14 +193,6 @@ public class Teacher {
 
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 
     public boolean isEmailVerified() {
@@ -201,6 +211,14 @@ public class Teacher {
         isDeleted = deleted;
     }
 
+    public Subject getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Subject subjects) {
+        this.subjects = subjects;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
@@ -210,13 +228,13 @@ public class Teacher {
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
+                ", subjects=" + subjects +
                 ", password='" + password + '\'' +
+                ", accessToken='" + accessToken + '\'' +
                 ", resetToken='" + resetToken + '\'' +
                 ", verificationToken='" + verificationToken + '\'' +
-                ", accessToken='" + accessToken + '\'' +
                 ", isEmailVerified=" + isEmailVerified +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
-
 }

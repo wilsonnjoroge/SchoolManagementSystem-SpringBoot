@@ -1,7 +1,9 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.dto.*;
+import com.brightstarschool.schoolmanagementsystem.entity.Subject;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
+import com.brightstarschool.schoolmanagementsystem.repository.SubjectRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +11,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherServiceImplementation implements TeacherService {
     private TeacherRepository teacherRepository;
+    private SubjectRepository subjectRepository;
 
     @Autowired
-    public TeacherServiceImplementation(TeacherRepository teacherRepository)
+    public TeacherServiceImplementation(TeacherRepository teacherRepository,
+                                        SubjectRepository subjectRepository)
     {
         this.teacherRepository = teacherRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @Override
@@ -35,6 +41,7 @@ public class TeacherServiceImplementation implements TeacherService {
                             teacher.getPhoneNumber(),
                             teacher.getEmail(),
                             teacher.getIdNumber(),
+                            teacher.getSubjects(),
                             teacher.getAccessToken(),
                             teacher.getResetToken(),
                             teacher.isEmailVerified(),
@@ -66,6 +73,11 @@ public class TeacherServiceImplementation implements TeacherService {
             if (teacherUpdateDTO.getIdNumber() != 0) {
                 teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
             }
+
+//            if (teacherUpdateDTO.getSubjectIds() != 0) {
+//                Subject subject = subjectRepository.findBySubjectId(teacherUpdateDTO.getSubjectIds());
+//                teacher.setSubjects(subject);
+//            }
 
             teacherRepository.save(teacher);
             return "Teacher details updated Successfully";

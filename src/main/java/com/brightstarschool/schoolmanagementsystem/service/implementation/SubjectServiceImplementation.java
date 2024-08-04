@@ -30,7 +30,7 @@ public class SubjectServiceImplementation implements SubjectService {
 
         if(subjectCodeExists.isPresent())
         {
-            return "Subject with that ID already exists";
+            return "Subject with that Code already exists";
         }
 
         if(subjectNameExists.isPresent())

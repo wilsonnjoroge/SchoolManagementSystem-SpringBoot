@@ -3,7 +3,9 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.dto.TeacherSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
+import com.brightstarschool.schoolmanagementsystem.entity.Subject;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
+import com.brightstarschool.schoolmanagementsystem.repository.SubjectRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationTeacher;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,14 +22,17 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
     private TeacherRepository teacherRepository;
     private PasswordEncoder passwordEncoder;
     private EmailsManagement emailsManagement;
+    private SubjectRepository subjectRepository;
 
     @Autowired
     public AuthenticationTeacherServiceImpplementation(TeacherRepository teacherRepository,
                                                        PasswordEncoder passwordEncoder,
-                                                       EmailsManagement emailsManagement) {
+                                                       EmailsManagement emailsManagement,
+                                                       SubjectRepository subjectRepository) {
         this.teacherRepository = teacherRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
+        this.subjectRepository = subjectRepository;
     }
 
     @Override
@@ -48,13 +55,21 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
             String encodedPassword = passwordEncoder.encode(teacherSaveDTO.getPassword());
             String verificationToken = RandomStringUtils.randomAlphanumeric(32);
 
+            // Fetch subjects from repository and assign them to the teacher
+            Optional<Subject> subjectsExist = subjectRepository.findById(teacherSaveDTO.getSubjectIds());
+            if(!subjectsExist.isPresent())
+            {
+                return "Subject with that ID is not found";
+            }
+            Subject subject = subjectsExist.get();
 
             Teacher teacher = new Teacher(
                     teacherSaveDTO.getName(),
                     teacherSaveDTO.getAdress(),
-                    teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getEmail(),
+                    teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getIdNumber(),
+                    subject,
                     encodedPassword,
                     "",
                     "",
