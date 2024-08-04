@@ -34,7 +34,7 @@ public class Teacher {
     private long idNumber;
 
     // Relationship with Subjects
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id")
     private Subject subjects;
 

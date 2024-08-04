@@ -18,13 +18,6 @@ public class Subject {
     @Column(name = "subject_name")
     public String subjectName;
 
-    /*
-        //Relationship with Teachers model
-        @ManyToMany(mappedBy = "subjects")
-        private Set<Teacher> teachers;
-
-        */
-
     public Subject() {
     }
 
