@@ -2,6 +2,7 @@ package com.brightstarschool.schoolmanagementsystem.controller;
 
 import com.brightstarschool.schoolmanagementsystem.dto.StreamDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StreamSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.dto.StreamUpdateDTO;
 import com.brightstarschool.schoolmanagementsystem.service.implementation.StreamServiceImplementation;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StreamService;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,13 @@ public class StreamController {
        List<StreamDTO> streams = streamServiceImplementation.getAllStreams();
 
        return ResponseEntity.ok(streams);
+    }
+
+    @PutMapping("/update-stream/{id}")
+    public ResponseEntity<String> updateStream(@PathVariable("id") long id, @RequestBody StreamUpdateDTO streamUpdateDTO)
+    {
+        String response = streamServiceImplementation.updateStream(id, streamUpdateDTO);
+
+        return ResponseEntity.ok(response);
     }
 }
