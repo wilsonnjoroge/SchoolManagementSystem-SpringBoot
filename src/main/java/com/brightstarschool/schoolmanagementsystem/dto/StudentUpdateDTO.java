@@ -18,6 +18,7 @@ public class StudentUpdateDTO {
     private long phoneNumber = 0;
     private String email;
     private long idNumber = 0;
+    private long streamId;
     private long dormitoryId = 0;
     private long currentTermId = 0;
     private long totalFeeBilled = 0;
