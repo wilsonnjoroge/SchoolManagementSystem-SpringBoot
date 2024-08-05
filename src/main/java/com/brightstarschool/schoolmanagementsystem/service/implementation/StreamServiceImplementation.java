@@ -3,15 +3,46 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.dto.StreamDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StreamSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StreamUpdateDTO;
+import com.brightstarschool.schoolmanagementsystem.entity.Stream;
 import com.brightstarschool.schoolmanagementsystem.repository.StreamRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StreamService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class StreamServiceImplementation implements StreamService {
+
+    private StreamRepository streamRepository;
+
+    public StreamServiceImplementation(StreamRepository streamRepository) {
+        this.streamRepository = streamRepository;
+    }
+
     @Override
     public String addStream(StreamSaveDTO streamSaveDTO) {
-        return null;
+        Optional<Stream> streamCodeExists = streamRepository.findByStreamCode(streamSaveDTO.getStreamCode());
+        if(streamCodeExists.isPresent())
+        {
+            return "Stream with that Code already exists";
+        }
+
+        Optional<Stream> streamNameExists = streamRepository.findByStreamName(streamSaveDTO.getStreamName());
+        if(streamNameExists.isPresent())
+        {
+            return "Stream with that Name already exists";
+        }
+
+        Stream stream = new Stream
+                (
+                        streamSaveDTO.getStreamCode(),
+                        streamSaveDTO.getStreamName()
+                );
+
+        streamRepository.save(stream);
+
+        return "Stream saved successfully";
     }
 
     @Override
