@@ -2,6 +2,7 @@ package com.brightstarschool.schoolmanagementsystem.dto;
 
 import com.brightstarschool.schoolmanagementsystem.entity.Dormitory;
 import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
+import com.brightstarschool.schoolmanagementsystem.entity.Stream;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class StudentDTO {
     private long phoneNumber;
     private String email;
     private long idNumber;
+    private Stream stream;
     private Dormitory dormitory;
     private FeesPerTerm currentTerm;
     private long totalFeeBilled;
