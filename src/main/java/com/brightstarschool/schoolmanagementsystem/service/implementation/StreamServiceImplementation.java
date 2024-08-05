@@ -8,6 +8,7 @@ import com.brightstarschool.schoolmanagementsystem.repository.StreamRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StreamService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,22 @@ public class StreamServiceImplementation implements StreamService {
 
     @Override
     public List<StreamDTO> getAllStreams() {
-        return null;
+        List<Stream> getStreams = streamRepository.findAll();
+        List<StreamDTO> streamDTOList = new ArrayList<>();
+
+        for(Stream stream : getStreams)
+        {
+            StreamDTO streamDTO = new StreamDTO
+                    (
+                            stream.getStreamId(),
+                            stream.getStreamCode(),
+                            stream.getStreamName()
+                    );
+
+            streamDTOList.add(streamDTO);
+        }
+
+        return  streamDTOList;
     }
 
     @Override
