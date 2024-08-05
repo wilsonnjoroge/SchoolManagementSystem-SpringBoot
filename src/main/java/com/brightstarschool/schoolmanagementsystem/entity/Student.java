@@ -40,6 +40,10 @@ public class Student {
     private long idNumber;
 
     @ManyToOne
+    @JoinColumn(name = "stream_id")
+    private Stream stream;
+
+    @ManyToOne
     @JoinColumn(name = "dormitory_id")
     private Dormitory dormitory;
 
@@ -92,6 +96,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   Stream stream,
                    Dormitory dormitory,
                    FeesPerTerm currentTerm,
                    long totalFeeBilled,
@@ -110,6 +115,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.stream = stream;
         this.dormitory = dormitory;
         this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
@@ -130,6 +136,7 @@ public class Student {
                    String email,
                    long phoneNumber,
                    long idNumber,
+                   Stream stream,
                    Dormitory dormitory,
                    FeesPerTerm currentTerm,
                    long totalFeeBilled,
@@ -146,6 +153,7 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
+        this.stream = stream;
         this.dormitory = dormitory;
         this.currentTerm = currentTerm;
         this.totalFeeBilled = totalFeeBilled;
@@ -213,6 +221,14 @@ public class Student {
 
     public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public Stream getStream() {
+        return stream;
+    }
+
+    public void setStream(Stream stream) {
+        this.stream = stream;
     }
 
     public Dormitory getDormitory() {
@@ -322,6 +338,9 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
+                ", stream=" + stream +
+                ", dormitory=" + dormitory +
+                ", currentTerm=" + currentTerm +
                 ", totalFeeBilled=" + totalFeeBilled +
                 ", totalPaidFee=" + totalPaidFee +
                 ", feeBalance=" + feeBalance +
@@ -332,7 +351,6 @@ public class Student {
                 ", isEmailVerified=" + isEmailVerified +
                 ", isDeleted=" + isDeleted +
                 ", enrollments=" + enrollments +
-                ", currentTerm=" + currentTerm +
                 '}';
     }
 }
