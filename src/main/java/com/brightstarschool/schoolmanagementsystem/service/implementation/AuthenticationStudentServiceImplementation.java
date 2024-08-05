@@ -84,6 +84,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             }
             Dormitory currentDormitory = currentDormitoryOptional.get();
 
+
             Optional<Stream> streamOptionalExists = streamRepository.findById(studentSaveDTO.getStreamId());
             if(!streamOptionalExists.isPresent())
             {

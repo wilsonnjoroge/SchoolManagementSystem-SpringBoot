@@ -5,6 +5,7 @@ import com.brightstarschool.schoolmanagementsystem.dto.StreamSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.dto.StreamUpdateDTO;
 import com.brightstarschool.schoolmanagementsystem.entity.Stream;
 import com.brightstarschool.schoolmanagementsystem.repository.StreamRepository;
+import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.StreamService;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,12 @@ import java.util.Optional;
 public class StreamServiceImplementation implements StreamService {
 
     private StreamRepository streamRepository;
+    private StudentRepository studentRepository;
 
-    public StreamServiceImplementation(StreamRepository streamRepository) {
+    public StreamServiceImplementation(StreamRepository streamRepository,
+                                       StudentRepository studentRepository) {
         this.streamRepository = streamRepository;
+        this.studentRepository = studentRepository;
     }
 
     @Override
@@ -92,6 +96,12 @@ public class StreamServiceImplementation implements StreamService {
 
     @Override
     public Boolean deleteStream(long streamId) {
-        return null;
+        if(streamRepository.existsById(streamId))
+        {
+            streamRepository.deleteById(streamId);
+            return true;
+        }
+        return false;
     }
+
 }

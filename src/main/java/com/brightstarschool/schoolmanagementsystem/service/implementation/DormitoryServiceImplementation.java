@@ -95,7 +95,6 @@ public class DormitoryServiceImplementation implements DormitoryService {
     @Override
     public boolean deleteDormitory(long id) {
         if(dormitoryRepository.existsById(id)) {
-
             dormitoryRepository.deleteById(id);
             return true;
         } else {
