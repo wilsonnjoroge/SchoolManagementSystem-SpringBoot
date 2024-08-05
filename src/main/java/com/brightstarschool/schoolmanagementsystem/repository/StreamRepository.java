@@ -9,4 +9,5 @@ public interface StreamRepository extends JpaRepository<Stream, Long> {
     Optional<Stream> findByStreamCode(long streamCode);
 
     Optional<Stream> findByStreamName(String streamName);
+
 }

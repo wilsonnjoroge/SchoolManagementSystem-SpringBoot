@@ -15,16 +15,16 @@ import java.util.List;
 @RequestMapping(path = "api/v1/streams")
 public class StreamController {
 
-    private StreamServiceImplementation streamServiceImplementation;
+    private StreamService streamService;
 
-    public StreamController(StreamServiceImplementation streamServiceImplementation) {
-        this.streamServiceImplementation = streamServiceImplementation;
+    public StreamController(StreamService streamService) {
+        this.streamService = streamService;
     }
 
     @PostMapping(path = "/add-stream")
     public ResponseEntity<String> addStream(@RequestBody StreamSaveDTO streamSaveDTO)
     {
-        String response = streamServiceImplementation.addStream(streamSaveDTO);
+        String response = streamService.addStream(streamSaveDTO);
 
         return ResponseEntity.ok(response);
     }
@@ -32,7 +32,7 @@ public class StreamController {
     @GetMapping(path = "/get-all-streams")
     public ResponseEntity<List<StreamDTO>> getAllStreams()
     {
-       List<StreamDTO> streams = streamServiceImplementation.getAllStreams();
+       List<StreamDTO> streams = streamService.getAllStreams();
 
        return ResponseEntity.ok(streams);
     }
@@ -40,8 +40,18 @@ public class StreamController {
     @PutMapping("/update-stream/{id}")
     public ResponseEntity<String> updateStream(@PathVariable("id") long id, @RequestBody StreamUpdateDTO streamUpdateDTO)
     {
-        String response = streamServiceImplementation.updateStream(id, streamUpdateDTO);
+        String response = streamService.updateStream(id, streamUpdateDTO);
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(path = "/delete-stream/{id}")
+    public String deleteStream(@PathVariable("id") long id) {
+        boolean deleteStream = streamService.deleteStream(id);
+        if (deleteStream) {
+            return "Stream deleted successfully";
+        } else {
+            return "Stream ID not found";
+        }
     }
 }
