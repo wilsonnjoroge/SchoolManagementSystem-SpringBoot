@@ -19,8 +19,4 @@ public class StudentSaveDTO {
     private long idNumber;
     private String password;
     private long totalPaidFee;
-    private String accessToken;
-    private String resetToken;
-    private boolean isEmailVerified;
-    private boolean isDeleted;
 }
