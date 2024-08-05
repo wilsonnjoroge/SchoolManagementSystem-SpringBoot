@@ -68,7 +68,26 @@ public class StreamServiceImplementation implements StreamService {
 
     @Override
     public String updateStream(long streamId, StreamUpdateDTO streamUpdateDTO) {
-        return null;
+
+        if(streamRepository.existsById(streamId))
+        {
+            Stream stream = streamRepository.getById(streamId);
+
+            if(streamUpdateDTO.getStreamCode() != 0)
+            {
+                stream.setStreamCode(streamUpdateDTO.getStreamCode());
+            }
+
+            if(streamUpdateDTO.getStreamName() != null)
+            {
+                stream.setStreamName(streamUpdateDTO.getStreamName());
+            }
+
+            streamRepository.save(stream);
+            return "Stream Details submitted successfully";
+        } else {
+            return "Stream with that ID no found";
+        }
     }
 
     @Override
