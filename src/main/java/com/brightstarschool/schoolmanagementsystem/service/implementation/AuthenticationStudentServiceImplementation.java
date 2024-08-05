@@ -3,14 +3,8 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 import com.brightstarschool.schoolmanagementsystem.Utils.NumberGenerator;
 import com.brightstarschool.schoolmanagementsystem.dto.StudentSaveDTO;
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
-import com.brightstarschool.schoolmanagementsystem.entity.AdmissionNumber;
-import com.brightstarschool.schoolmanagementsystem.entity.Dormitory;
-import com.brightstarschool.schoolmanagementsystem.entity.FeesPerTerm;
-import com.brightstarschool.schoolmanagementsystem.entity.Student;
-import com.brightstarschool.schoolmanagementsystem.repository.AdmissionTracker;
-import com.brightstarschool.schoolmanagementsystem.repository.DormitoryRepository;
-import com.brightstarschool.schoolmanagementsystem.repository.FeePerTermRepository;
-import com.brightstarschool.schoolmanagementsystem.repository.StudentRepository;
+import com.brightstarschool.schoolmanagementsystem.entity.*;
+import com.brightstarschool.schoolmanagementsystem.repository.*;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationStudent;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +25,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
     private AdmissionTracker admissionTracker;
     private FeePerTermRepository feePerTermRepository;
     private DormitoryRepository dormitoryRepository;
+    private StreamRepository streamRepository;
 
     @Autowired
     public AuthenticationStudentServiceImplementation(StudentRepository studentRepository,
@@ -39,7 +34,8 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                                                       NumberGenerator numberGenerator,
                                                       AdmissionTracker admissionTracker,
                                                       FeePerTermRepository feePerTermRepository,
-                                                      DormitoryRepository dormitoryRepository) {
+                                                      DormitoryRepository dormitoryRepository,
+                                                      StreamRepository streamRepository) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
@@ -47,6 +43,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
         this.admissionTracker = admissionTracker;
         this.feePerTermRepository = feePerTermRepository;
         this.dormitoryRepository = dormitoryRepository;
+        this.streamRepository = streamRepository;
     }
 
     @Override
@@ -87,6 +84,13 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
             }
             Dormitory currentDormitory = currentDormitoryOptional.get();
 
+            Optional<Stream> streamOptionalExists = streamRepository.findById(studentSaveDTO.getStreamId());
+            if(!streamOptionalExists.isPresent())
+            {
+                return "Stream with ID " + studentSaveDTO.getStreamId() + " does not exist!";
+            }
+            Stream stream = streamOptionalExists.get();
+
             Student student = new Student(
                     admissionNumber,
                     studentSaveDTO.getName(),
@@ -94,6 +98,7 @@ public class AuthenticationStudentServiceImplementation implements Authenticatio
                     studentSaveDTO.getEmail(),
                     studentSaveDTO.getPhoneNumber(),
                     studentSaveDTO.getIdNumber(),
+                    stream,
                     currentDormitory,
                     currentTerm,
                     totalFeeBilled,
