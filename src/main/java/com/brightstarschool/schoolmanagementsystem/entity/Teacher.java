@@ -38,6 +38,10 @@ public class Teacher {
     @JoinColumn(name = "subject_id")
     private Subject subjects;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role roles;
+
     @NotNull
     @Column(name = "password")
     private String password;
@@ -68,6 +72,7 @@ public class Teacher {
                    long phoneNumber,
                    long idNumber,
                    Subject subjects,
+                   Role roles,
                    String password,
                    String accessToken,
                    String resetToken,
@@ -81,6 +86,7 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
         this.subjects = subjects;
+        this.roles = roles;
         this.password = password;
         this.accessToken = accessToken;
         this.resetToken = resetToken;
@@ -95,6 +101,7 @@ public class Teacher {
                    long phoneNumber,
                    long idNumber,
                    Subject subjects,
+                   Role roles,
                    String password,
                    String accessToken,
                    String resetToken,
@@ -107,6 +114,7 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
         this.subjects = subjects;
+        this.roles = roles;
         this.password = password;
         this.accessToken = accessToken;
         this.resetToken = resetToken;
@@ -161,6 +169,14 @@ public class Teacher {
 
     public void setIdNumber(long idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public Role getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
     }
 
     public String getPassword() {
@@ -229,6 +245,7 @@ public class Teacher {
                 ", phoneNumber=" + phoneNumber +
                 ", idNumber=" + idNumber +
                 ", subjects=" + subjects +
+                ", roles=" + roles +
                 ", password='" + password + '\'' +
                 ", accessToken='" + accessToken + '\'' +
                 ", resetToken='" + resetToken + '\'' +
