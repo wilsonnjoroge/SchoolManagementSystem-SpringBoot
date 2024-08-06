@@ -2,9 +2,11 @@ package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.Utils.EmailsManagement;
 import com.brightstarschool.schoolmanagementsystem.dto.TeacherSaveDTO;
+import com.brightstarschool.schoolmanagementsystem.entity.Role;
 import com.brightstarschool.schoolmanagementsystem.entity.Student;
 import com.brightstarschool.schoolmanagementsystem.entity.Subject;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
+import com.brightstarschool.schoolmanagementsystem.repository.RoleRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.SubjectRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.AuthenticationTeacher;
@@ -23,16 +25,19 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
     private PasswordEncoder passwordEncoder;
     private EmailsManagement emailsManagement;
     private SubjectRepository subjectRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public AuthenticationTeacherServiceImpplementation(TeacherRepository teacherRepository,
                                                        PasswordEncoder passwordEncoder,
                                                        EmailsManagement emailsManagement,
-                                                       SubjectRepository subjectRepository) {
+                                                       SubjectRepository subjectRepository,
+                                                       RoleRepository roleRepository) {
         this.teacherRepository = teacherRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailsManagement = emailsManagement;
         this.subjectRepository = subjectRepository;
+        this.roleRepository =roleRepository;
     }
 
     @Override
@@ -63,6 +68,14 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
             }
             Subject subject = subjectsExist.get();
 
+            Optional<Role> roleOptionalExists = roleRepository.findByRoleCode(teacherSaveDTO.getRoleCodes());
+            if(!roleOptionalExists.isPresent())
+            {
+                return "Role with that Code is not found";
+            }
+
+            Role role = roleOptionalExists.get();
+
             Teacher teacher = new Teacher(
                     teacherSaveDTO.getName(),
                     teacherSaveDTO.getAdress(),
@@ -70,6 +83,7 @@ public class AuthenticationTeacherServiceImpplementation implements Authenticati
                     teacherSaveDTO.getPhoneNumber(),
                     teacherSaveDTO.getIdNumber(),
                     subject,
+                    role,
                     encodedPassword,
                     "",
                     "",

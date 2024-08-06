@@ -1,8 +1,10 @@
 package com.brightstarschool.schoolmanagementsystem.service.implementation;
 
 import com.brightstarschool.schoolmanagementsystem.dto.*;
+import com.brightstarschool.schoolmanagementsystem.entity.Role;
 import com.brightstarschool.schoolmanagementsystem.entity.Subject;
 import com.brightstarschool.schoolmanagementsystem.entity.Teacher;
+import com.brightstarschool.schoolmanagementsystem.repository.RoleRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.SubjectRepository;
 import com.brightstarschool.schoolmanagementsystem.repository.TeacherRepository;
 import com.brightstarschool.schoolmanagementsystem.service.interfaces.TeacherService;
@@ -17,13 +19,16 @@ import java.util.Optional;
 public class TeacherServiceImplementation implements TeacherService {
     private TeacherRepository teacherRepository;
     private SubjectRepository subjectRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public TeacherServiceImplementation(TeacherRepository teacherRepository,
-                                        SubjectRepository subjectRepository)
+                                        SubjectRepository subjectRepository,
+                                        RoleRepository roleRepository)
     {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -42,6 +47,7 @@ public class TeacherServiceImplementation implements TeacherService {
                             teacher.getEmail(),
                             teacher.getIdNumber(),
                             teacher.getSubjects(),
+                            teacher.getRoles(),
                             teacher.getAccessToken(),
                             teacher.getResetToken(),
                             teacher.isEmailVerified(),
@@ -74,10 +80,16 @@ public class TeacherServiceImplementation implements TeacherService {
                 teacher.setIdNumber(teacherUpdateDTO.getIdNumber());
             }
 
-//            if (teacherUpdateDTO.getSubjectIds() != 0) {
-//                Subject subject = subjectRepository.findBySubjectId(teacherUpdateDTO.getSubjectIds());
-//                teacher.setSubjects(subject);
-//            }
+            if (teacherUpdateDTO.getSubjectIds() != 0) {
+                Subject subject = subjectRepository.findBySubjectId(teacherUpdateDTO.getSubjectIds());
+                teacher.setSubjects(subject);
+            }
+
+            if(teacherUpdateDTO.getRoleCodes() != 0)
+            {
+                Role role = roleRepository.getById(teacherUpdateDTO.getRoleCodes());
+                teacher.setRoles(role);
+            }
 
             teacherRepository.save(teacher);
             return "Teacher details updated Successfully";

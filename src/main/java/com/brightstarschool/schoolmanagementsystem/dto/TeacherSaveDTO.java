@@ -16,5 +16,6 @@ public class TeacherSaveDTO {
     private String email;
     private long idNumber;
     private long subjectIds;
+    private long roleCodes;
     private String password;
 }

@@ -17,5 +17,6 @@ public class TeacherUpdateDTO {
     private String email;
     private long idNumber = 0;
     private long subjectIds;
+    private long roleCodes;
     private String password;
 }

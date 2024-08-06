@@ -11,6 +11,7 @@ import com.brightstarschool.schoolmanagementsystem.service.interfaces.RoleServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,5 +91,10 @@ public class RoleServiceImplementation implements RoleService {
             System.out.println("\nRole Code not found");
             return false;
         }
+    }
+
+    @Override
+    public Optional<Entity> assignRole(Entity T, long roleCode) {
+        return Optional.empty();
     }
 }
