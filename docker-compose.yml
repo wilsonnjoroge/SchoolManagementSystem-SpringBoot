@@ -1,4 +1,7 @@
 
+
+## Deployed the app to azure
+## http://20.164.53.80:5555/swagger-ui/index.html
 version: '3.8'
 
 services:
@@ -14,7 +17,7 @@ services:
       - schoolmanagementsystemnetwork
 
   springboot:
-    image: school-management-system-spring:latest    # Replace with your Docker image name
+    image: school-management-system-spring:latest
     container_name: school-management-system-spring
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/schoolmanagementsystem
