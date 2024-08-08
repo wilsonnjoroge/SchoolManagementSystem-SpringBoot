@@ -14,8 +14,7 @@ public class AdmissionNumber {
     @Nullable
     @Column(name = "recent_admission_number", unique = true)
     private String recentAdmissionNumber;
-
-    // Constructors, getters, setters
+    
 
     public AdmissionNumber() {}
 
