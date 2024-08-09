@@ -1,7 +1,4 @@
 
-
-## Deployed the app to azure
-## http://20.164.53.80:5555/swagger-ui/index.html
 version: '3.8'
 
 services:
