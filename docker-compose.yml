@@ -1,4 +1,3 @@
-
 version: '3.8'
 
 services:
@@ -7,17 +6,19 @@ services:
     container_name: mysqldb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: schoolmanagementsystem
+      MYSQL_DATABASE: school_management
     ports:
-      - "3300:3306"
+      - "3307:3306"
     networks:
       - schoolmanagementsystemnetwork
 
   springboot:
-    image: school-management-system-spring:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: school-management-system-spring
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/schoolmanagementsystem
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/school_management
       SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
       SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
